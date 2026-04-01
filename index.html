@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AAAG – Alumni Association of APR School Gandipalem</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;900&family=Poppins:wght@300;400;500;600;700&family=Noto+Sans+Telugu:wght@400;600;700&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --blue:       #1A3FA0;
+      --blue-dark:  #0F2670;
+      --blue-mid:   #2F5BE0;
+      --blue-light: #E8EDFB;
+      --orange:     #F26C1B;
+      --orange-lt:  #FF8C42;
+      --orange-pale:#FEF0E6;
+      --teal:       #1A6B5A;
+      --white:      #FFFFFF;
+      --off-white:  #F7F8FC;
+      --border:     #E2E8F0;
+      --text-dark:  #0F172A;
+      --text-mid:   #475569;
+      --text-light: #94A3B8;
+    }
+
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+
+    /* Font system: Poppins body, Playfair headings, Noto Telugu */
+    body { font-family:'Poppins',sans-serif; background:var(--white); color:var(--text-dark); overflow-x:hidden; }
+
+    /* ══ NAVBAR ══ */
+    nav {
+      position:fixed; top:0; left:0; right:0; z-index:999;
+      background:rgba(255,255,255,0.97); backdrop-filter:blur(14px);
+      border-bottom:1px solid var(--border);
+      height:64px; display:flex; align-items:center;
+      justify-content:space-between; padding:0 1.5rem;
+      box-shadow:0 1px 12px rgba(26,63,160,0.07);
+    }
+    .nav-wordmark { display:flex; align-items:center; gap:10px; text-decoration:none; flex-shrink:0; }
+    .nav-logo { width:44px; height:44px; object-fit:contain; border-radius:6px; flex-shrink:0; }
+    .nav-text { display:flex; flex-direction:column; line-height:1.15; }
+    .nav-text .nname {
+      font-family:'Playfair Display',serif;
+      font-size:1.05rem; font-weight:700;
+      color:var(--teal); letter-spacing:1.5px;
+    }
+    .nav-text .nsub {
+      font-size:0.5rem; color:var(--text-light);
+      letter-spacing:0.8px; text-transform:uppercase; margin-top:1px;
+      font-weight:500;
+    }
+
+    .nav-links { display:flex; align-items:center; }
+    .nav-links a {
+      color:var(--text-mid); text-decoration:none;
+      font-size:0.8rem; font-weight:500;
+      padding:0.4rem 0.7rem; border-radius:6px;
+      transition:all 0.2s; position:relative;
+    }
+    .nav-links a::after {
+      content:''; position:absolute; bottom:2px;
+      left:0.7rem; right:0.7rem; height:2px;
+      background:var(--orange); border-radius:2px;
+      transform:scaleX(0); transition:transform 0.25s ease;
+    }
+    .nav-links a:hover::after,
+    .nav-links a.active::after { transform:scaleX(1); }
+    .nav-links a:hover  { color:var(--blue); background:var(--blue-light); }
+    .nav-links a.active { color:var(--blue); font-weight:600; }
+    .nav-cta {
+      background:var(--orange) !important; color:var(--white) !important;
+      font-weight:600 !important; padding:0.42rem 1rem !important;
+      border-radius:8px; margin-left:0.5rem;
+      box-shadow:0 3px 10px rgba(242,108,27,0.3);
+    }
+    .nav-cta::after { display:none !important; }
+    .nav-cta:hover { background:var(--orange-lt) !important; transform:translateY(-1px); }
+
+    .hamburger { display:none; flex-direction:column; gap:4px; cursor:pointer; padding:4px; }
+    .hamburger span { display:block; width:20px; height:2px; background:var(--blue); border-radius:2px; }
+
+    .mobile-menu {
+      display:none; position:fixed; top:64px; left:0; right:0;
+      background:var(--white); border-bottom:1px solid var(--border);
+      padding:1rem 1.5rem; z-index:998; flex-direction:column;
+      box-shadow:0 8px 24px rgba(0,0,0,0.08);
+    }
+    .mobile-menu.open { display:flex; }
+    .mobile-menu a {
+      color:var(--text-mid); text-decoration:none;
+      font-size:0.9rem; padding:0.65rem 0;
+      border-bottom:1px solid var(--border); font-weight:500;
+    }
+    .mobile-menu a:last-child { border:none; color:var(--orange); font-weight:600; padding-top:0.8rem; }
+
+    /* ══ HERO ══ */
+    .hero {
+      margin-top:64px;
+      min-height:calc(100svh - 64px);
+      display:flex; flex-direction:column;
+      background:var(--white);
+      position:relative; overflow:hidden;
+    }
+    .hero-bg {
+      position:absolute; top:0; right:0;
+      width:48%; height:100%;
+      background:linear-gradient(150deg, var(--blue) 0%, var(--blue-dark) 100%);
+      clip-path:polygon(12% 0%, 100% 0%, 100% 100%, 0% 100%);
+      z-index:0;
+    }
+    .hero-bg::before {
+      content:''; position:absolute; inset:0;
+      background:radial-gradient(circle at 70% 40%, rgba(242,108,27,0.18), transparent 55%);
+    }
+    .hero-dots {
+      position:absolute; right:5%; top:20%;
+      width:150px; height:150px;
+      background-image:radial-gradient(circle, rgba(255,255,255,0.2) 1.5px, transparent 1.5px);
+      background-size:20px 20px; z-index:1; pointer-events:none;
+    }
+
+    .hero-inner {
+      flex:1; max-width:1200px; margin:0 auto; width:100%;
+      padding:3rem 1.5rem;
+      display:flex; align-items:center; gap:3rem;
+      position:relative; z-index:2;
+    }
+
+    .hero-left { flex:1; min-width:0; }
+
+    .hero-pill {
+      display:inline-flex; align-items:center; gap:7px;
+      background:var(--blue-light); border:1px solid rgba(26,63,160,0.15);
+      padding:0.3rem 0.9rem; border-radius:50px; margin-bottom:1.25rem;
+    }
+    .hero-pill .dot { width:6px; height:6px; background:var(--orange); border-radius:50%; animation:blink 2s infinite; flex-shrink:0; }
+    .hero-pill span { font-size:0.65rem; color:var(--blue); letter-spacing:1.5px; text-transform:uppercase; font-weight:600; }
+    @keyframes blink { 0%,100%{opacity:1;} 50%{opacity:0.3;} }
+
+    .hero-title {
+      font-family:'Playfair Display',serif;
+      font-size:clamp(2rem,5vw,3.6rem);
+      font-weight:900; line-height:1.1;
+      color:var(--text-dark); margin-bottom:0.5rem;
+    }
+    .hero-title .accent { color:var(--orange); }
+
+    .hero-sub {
+      font-size:0.72rem; font-weight:600; letter-spacing:2.5px;
+      color:var(--text-light); text-transform:uppercase; margin-bottom:1.25rem;
+    }
+
+    .hero-desc {
+      font-size:0.9rem; color:var(--text-mid);
+      line-height:1.8; max-width:460px; margin-bottom:0.6rem;
+      font-weight:400;
+    }
+    .hero-telugu {
+      font-family:'Noto Sans Telugu',sans-serif;
+      font-size:0.95rem; color:var(--orange);
+      margin-bottom:2rem; font-weight:600;
+    }
+
+    .hero-btns { display:flex; gap:0.75rem; flex-wrap:wrap; margin-bottom:2rem; }
+
+    .btn-primary {
+      display:inline-flex; align-items:center; gap:7px;
+      background:var(--orange); color:var(--white);
+      font-weight:600; padding:0.8rem 1.5rem; border-radius:10px;
+      text-decoration:none; font-size:0.85rem;
+      transition:all 0.25s; box-shadow:0 4px 16px rgba(242,108,27,0.35);
+      font-family:'Poppins',sans-serif;
+    }
+    .btn-primary:hover { background:var(--orange-lt); transform:translateY(-2px); }
+
+    .btn-outline {
+      display:inline-flex; align-items:center; gap:7px;
+      background:transparent; color:var(--blue);
+      font-weight:600; padding:0.8rem 1.5rem; border-radius:10px;
+      text-decoration:none; font-size:0.85rem;
+      border:2px solid var(--blue); transition:all 0.25s;
+      font-family:'Poppins',sans-serif;
+    }
+    .btn-outline:hover { background:var(--blue); color:var(--white); }
+
+    /* Stats — clean, no conflicting line on blue bg */
+    .hero-stats {
+      display:flex; align-items:center; gap:1.5rem;
+      flex-wrap:wrap;
+    }
+    .hstat { display:flex; flex-direction:column; }
+    .hstat-num {
+      font-family:'Playfair Display',serif;
+      font-size:1.5rem; font-weight:700;
+      color:var(--blue-dark); line-height:1;
+    }
+    .hstat-num .plus { color:var(--orange); font-size:1.1rem; }
+    .hstat-lbl {
+      font-size:0.6rem; color:var(--text-light);
+      font-weight:600; letter-spacing:1px;
+      text-transform:uppercase; margin-top:3px;
+    }
+    .hstat-div { width:1px; height:28px; background:var(--border); flex-shrink:0; }
+
+    /* Hero right — school photo slideshow */
+    .hero-right { flex-shrink:0; width:360px; animation:slideIn 0.7s 0.2s both; }
+    @keyframes slideIn { from{opacity:0;transform:translateX(28px);} to{opacity:1;transform:translateX(0);} }
+    .slideshow { border-radius:20px; overflow:hidden; box-shadow:0 20px 60px rgba(15,38,112,0.25); border:2px solid rgba(255,255,255,0.15); position:relative; aspect-ratio:4/3; background:var(--blue-dark); }
+    .slide { position:absolute; inset:0; opacity:0; transition:opacity 0.9s ease; }
+    .slide.active { opacity:1; }
+    .slide img { width:100%; height:100%; object-fit:cover; display:block; }
+    .slide-caption { position:absolute; bottom:0; left:0; right:0; background:linear-gradient(transparent,rgba(15,38,112,0.8)); padding:1.5rem 1.25rem 0.85rem; }
+    .slide-caption p { font-size:0.7rem; color:rgba(255,255,255,0.85); font-weight:500; }
+    .slide-dots { position:absolute; bottom:0.7rem; right:0.9rem; display:flex; gap:5px; z-index:2; }
+    .slide-dot { width:6px; height:6px; border-radius:50%; background:rgba(255,255,255,0.4); cursor:pointer; transition:all 0.2s; border:none; padding:0; }
+    .slide-dot.active { background:var(--orange); transform:scale(1.3); }
+
+    /* ══ SECTIONS ══ */
+    section { padding:4.5rem 1.5rem; }
+    .sec-in  { max-width:1100px; margin:0 auto; }
+    .s-label { font-size:0.62rem; font-weight:600; letter-spacing:3px; text-transform:uppercase; color:var(--orange); margin-bottom:0.5rem; font-family:'Poppins',sans-serif; }
+    .s-title { font-family:'Playfair Display',serif; font-size:clamp(1.5rem,3vw,2.2rem); font-weight:700; color:var(--blue-dark); line-height:1.2; margin-bottom:0.75rem; }
+    .s-desc  { font-size:0.88rem; color:var(--text-mid); line-height:1.8; max-width:580px; font-weight:400; }
+    .s-bar   { width:40px; height:4px; background:var(--blue); border-radius:2px; margin-bottom:1.1rem; }
+
+    /* ══ MISSION ══ */
+    #mission { background:var(--off-white); }
+    .mission-grid { display:grid; grid-template-columns:1fr 1fr; gap:3rem; align-items:start; margin-top:2.5rem; }
+    .pillars { display:flex; flex-direction:column; gap:0.85rem; }
+    .pillar {
+      display:flex; gap:0.9rem; align-items:flex-start;
+      background:var(--white); border-radius:12px; padding:1.1rem;
+      border:1px solid var(--border); transition:all 0.2s;
+    }
+    .pillar:hover { border-color:var(--orange); box-shadow:0 4px 16px rgba(242,108,27,0.09); transform:translateX(3px); }
+    .p-ico { width:38px; height:38px; flex-shrink:0; border-radius:9px; background:var(--blue); display:flex; align-items:center; justify-content:center; font-size:1rem; }
+    .pillar h4 { font-size:0.85rem; font-weight:600; color:var(--blue-dark); margin-bottom:0.2rem; }
+    .pillar p  { font-size:0.78rem; color:var(--text-mid); line-height:1.6; font-weight:400; }
+
+    .quote-box {
+      background:var(--blue); border-radius:18px; padding:2.5rem 2rem;
+      position:relative; overflow:hidden;
+    }
+    .quote-box::before { content:'"'; position:absolute; top:-20px; right:16px; font-family:'Playfair Display',serif; font-size:10rem; color:rgba(255,255,255,0.06); line-height:1; pointer-events:none; }
+    .quote-box::after  { content:''; position:absolute; bottom:0; left:0; right:0; height:4px; background:var(--orange); }
+    .quote-box blockquote { font-family:'Playfair Display',serif; font-size:1.15rem; font-style:italic; color:var(--white); line-height:1.65; position:relative; z-index:1; }
+    .q-tel { font-family:'Noto Sans Telugu',sans-serif; font-size:0.9rem; color:var(--orange-lt); margin-top:1rem; display:block; font-style:normal; }
+    .q-src { margin-top:1.25rem; font-size:0.65rem; color:rgba(255,255,255,0.4); letter-spacing:1.5px; text-transform:uppercase; font-family:'Poppins',sans-serif; }
+
+    /* ══ WHAT WE DO ══ */
+    #what-we-do { background:var(--white); }
+    .cards-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1.25rem; margin-top:2.5rem; }
+    .card {
+      background:var(--white); border:1px solid var(--border);
+      border-radius:14px; padding:1.6rem 1.25rem;
+      transition:all 0.25s; position:relative; overflow:hidden;
+    }
+    .card-bar { position:absolute; top:0; left:0; right:0; height:3px; background:linear-gradient(90deg,var(--blue),var(--orange)); transform:scaleX(0); transform-origin:left; transition:transform 0.3s; }
+    .card:hover { transform:translateY(-4px); box-shadow:0 10px 30px rgba(26,63,160,0.1); border-color:transparent; }
+    .card:hover .card-bar { transform:scaleX(1); }
+    .card-ico { width:44px; height:44px; border-radius:11px; background:var(--blue-light); display:flex; align-items:center; justify-content:center; font-size:1.2rem; margin-bottom:0.9rem; }
+    .card h3 { font-size:0.9rem; font-weight:600; color:var(--blue-dark); margin-bottom:0.4rem; }
+    .card p  { font-size:0.78rem; color:var(--text-mid); line-height:1.65; font-weight:400; }
+
+    /* ══ EVENTS ══ */
+    #events { background:var(--off-white); }
+    .events-list { display:flex; flex-direction:column; gap:0.85rem; margin-top:2.5rem; }
+    .ev-row {
+      display:flex; gap:1.1rem; align-items:flex-start;
+      background:var(--white); border-radius:13px;
+      padding:1.1rem 1.25rem; border:1px solid var(--border); transition:all 0.2s;
+    }
+    .ev-row:hover { border-color:var(--blue); box-shadow:0 4px 16px rgba(26,63,160,0.08); }
+    .ev-date { flex-shrink:0; width:50px; text-align:center; background:var(--blue); border-radius:9px; padding:0.45rem 0; }
+    .ev-date .d { font-family:'Playfair Display',serif; font-size:1.35rem; font-weight:700; color:var(--white); line-height:1; }
+    .ev-date .m { font-size:0.58rem; color:rgba(255,255,255,0.65); text-transform:uppercase; letter-spacing:1px; margin-top:2px; font-family:'Poppins',sans-serif; }
+    .ev-info { flex:1; min-width:0; }
+    .ev-info h4    { font-size:0.87rem; font-weight:600; color:var(--text-dark); margin-bottom:0.2rem; line-height:1.4; }
+    .ev-sub        { font-size:0.73rem; color:var(--text-light); font-weight:400; }
+    .ev-wa         { font-size:0.68rem; color:var(--orange); font-weight:600; margin-top:0.3rem; }
+    .ev-tag { flex-shrink:0; padding:0.22rem 0.65rem; border-radius:50px; font-size:0.62rem; font-weight:600; letter-spacing:0.5px; text-transform:uppercase; white-space:nowrap; align-self:flex-start; margin-top:0.1rem; font-family:'Poppins',sans-serif; }
+    .tag-launch { background:var(--orange-pale); color:var(--orange); border:1px solid rgba(242,108,27,0.25); }
+    .tag-soon   { background:var(--blue-light); color:var(--blue); }
+    .sec-link   { margin-top:2rem; }
+
+    /* ══ SPOTLIGHT ══ */
+    #spotlight { background:var(--white); }
+    .spot-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1.25rem; margin-top:2.5rem; }
+    .spot-card { border-radius:14px; overflow:hidden; border:1px solid var(--border); transition:all 0.25s; }
+    .spot-card:hover { transform:translateY(-4px); box-shadow:0 10px 28px rgba(26,63,160,0.1); border-color:transparent; }
+    .spot-head { background:linear-gradient(135deg,var(--blue),var(--blue-dark)); padding:1.5rem; text-align:center; position:relative; }
+    .spot-head::after { content:''; position:absolute; bottom:0; left:0; right:0; height:3px; background:var(--orange); }
+    .spot-av { width:56px; height:56px; border-radius:50%; background:rgba(255,255,255,0.12); display:flex; align-items:center; justify-content:center; font-family:'Playfair Display',serif; font-size:1.25rem; font-weight:700; color:var(--white); margin:0 auto 0.6rem; border:2px solid rgba(242,108,27,0.4); }
+    .spot-head h4 { font-size:0.88rem; font-weight:600; color:var(--white); font-family:'Poppins',sans-serif; }
+    .spot-batch { display:inline-block; margin-top:0.25rem; padding:0.15rem 0.55rem; border-radius:50px; background:rgba(242,108,27,0.2); border:1px solid rgba(242,108,27,0.3); font-size:0.62rem; color:var(--orange-lt); font-family:'Poppins',sans-serif; }
+    .spot-body  { padding:1.1rem 1.2rem; }
+    .spot-role  { font-size:0.75rem; font-weight:600; color:var(--blue); margin-bottom:0.35rem; }
+    .spot-quote { font-size:0.75rem; color:var(--text-mid); line-height:1.6; font-style:italic; font-weight:400; }
+
+    /* ══ JOIN CTA ══ */
+    #join { background:var(--blue); text-align:center; position:relative; overflow:hidden; }
+    #join::before { content:''; position:absolute; inset:0; background:radial-gradient(circle at 50% 50%,rgba(242,108,27,0.15),transparent 65%); pointer-events:none; }
+    #join .s-title { color:var(--white); }
+    #join .s-desc  { color:rgba(255,255,255,0.65); margin:0 auto 2rem; text-align:center; }
+    #join .s-label { color:rgba(242,108,27,0.8); text-align:center; }
+    .join-btns { display:flex; gap:0.75rem; justify-content:center; flex-wrap:wrap; }
+    .btn-white { display:inline-flex; align-items:center; gap:7px; background:var(--white); color:var(--blue); font-weight:600; padding:0.8rem 1.6rem; border-radius:10px; text-decoration:none; font-size:0.85rem; transition:all 0.25s; box-shadow:0 4px 16px rgba(0,0,0,0.14); font-family:'Poppins',sans-serif; }
+    .btn-white:hover { transform:translateY(-2px); box-shadow:0 8px 24px rgba(0,0,0,0.2); }
+    .btn-ghost { display:inline-flex; align-items:center; gap:7px; background:transparent; color:rgba(255,255,255,0.85); font-weight:500; padding:0.8rem 1.6rem; border-radius:10px; text-decoration:none; font-size:0.85rem; border:2px solid rgba(255,255,255,0.3); transition:all 0.25s; font-family:'Poppins',sans-serif; }
+    .btn-ghost:hover { background:rgba(255,255,255,0.1); color:#fff; border-color:rgba(255,255,255,0.6); }
+
+    /* ══ FOOTER ══ */
+    footer { background:#0A1830; padding:3rem 1.5rem 1.5rem; }
+    .foot-in { max-width:1100px; margin:0 auto; display:grid; grid-template-columns:2fr 1fr 1fr; gap:2.5rem; padding-bottom:2rem; border-bottom:1px solid rgba(255,255,255,0.08); }
+    .fb-name { font-family:'Playfair Display',serif; font-size:1.2rem; color:var(--white); letter-spacing:2px; margin-bottom:0.5rem; }
+    .fb-name span { color:var(--orange-lt); }
+    .foot-in p { font-size:0.78rem; color:rgba(255,255,255,0.4); line-height:1.75; font-weight:400; }
+    .fb-tel { font-family:'Noto Sans Telugu',sans-serif; color:var(--orange-lt); font-size:0.82rem; margin-top:0.65rem; display:block; }
+    .fc h5 { font-size:0.62rem; text-transform:uppercase; letter-spacing:2px; color:rgba(255,255,255,0.5); margin-bottom:0.9rem; font-weight:600; }
+    .fc a  { display:block; color:rgba(255,255,255,0.38); text-decoration:none; font-size:0.78rem; margin-bottom:0.45rem; transition:color 0.2s; font-weight:400; }
+    .fc a:hover { color:var(--orange-lt); }
+    .foot-btm { max-width:1100px; margin:1.1rem auto 0; display:flex; justify-content:space-between; font-size:0.68rem; color:rgba(255,255,255,0.22); }
+
+    /* FADE IN */
+    .fi { opacity:0; transform:translateY(18px); transition:opacity 0.55s ease, transform 0.55s ease; }
+    .fi.v { opacity:1; transform:translateY(0); }
+
+    /* ══ TABLET ≤900px ══ */
+    @media (max-width:900px) {
+      .hero-bg, .hero-dots { display:none; }
+      .hero-inner { flex-direction:column; gap:2rem; padding:2rem 1.5rem 2.5rem; align-items:flex-start; }
+      .hero-right { width:100%; max-width:380px; align-self:center; }
+      .hero-desc  { max-width:100%; }
+      .mission-grid { grid-template-columns:1fr; gap:1.75rem; }
+      .cards-grid   { grid-template-columns:1fr 1fr; }
+      .spot-grid    { grid-template-columns:1fr 1fr; }
+      .foot-in      { grid-template-columns:1fr 1fr; }
+    }
+
+    /* ══ MOBILE ≤600px ══ */
+    @media (max-width:600px) {
+      .nav-links  { display:none; }
+      .hamburger  { display:flex; }
+      nav         { padding:0 1rem; }
+      .nav-text .nsub { display:none; }
+
+      .hero-inner { padding:1.5rem 1rem 2rem; }
+      .hero-title { font-size:clamp(1.7rem,7vw,2.2rem); }
+      .hero-btns  { flex-direction:column; }
+      .btn-primary, .btn-outline { width:100%; justify-content:center; }
+      .hero-stats { gap:1rem; }
+      .hstat-num  { font-size:1.25rem; }
+      .hero-right { max-width:100%; }
+
+      section { padding:3rem 1rem; }
+      .cards-grid { grid-template-columns:1fr; }
+      .spot-grid  { grid-template-columns:1fr; }
+      .mission-grid { gap:1.5rem; }
+      .quote-box { padding:1.75rem 1.25rem; }
+      .quote-box blockquote { font-size:1rem; }
+      .ev-row { flex-wrap:wrap; }
+      .join-btns { flex-direction:column; align-items:center; }
+      .btn-white, .btn-ghost { width:100%; max-width:280px; justify-content:center; }
+      .foot-in  { grid-template-columns:1fr; gap:1.75rem; }
+      .foot-btm { flex-direction:column; gap:0.35rem; text-align:center; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav>
+  <a href="index.html" class="nav-wordmark">
+    <img src="logo.png" alt="AAAG Logo" class="nav-logo"/>
+    <div class="nav-text">
+      <span class="nname">AAAG</span>
+      <span class="nsub">Alumni Association of APR School Gandipalem</span>
+    </div>
+  </a>
+  <div class="nav-links">
+    <a href="index.html" class="active">Home</a>
+    <a href="about.html">About</a>
+    <a href="committee.html">Committee</a>
+    <a href="directory.html">Directory</a>
+    <a href="programs.html">Programs & Events</a>
+    <a href="contact.html">Contact</a>
+    <a href="directory.html?join=true" class="nav-cta">Join Directory</a>
+  </div>
+  <div class="hamburger" onclick="toggleMenu()"><span></span><span></span><span></span></div>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a href="index.html">Home</a>
+  <a href="about.html">About</a>
+  <a href="committee.html">Committee</a>
+  <a href="directory.html">Directory</a>
+  <a href="programs.html">Programs & Events</a>
+  <a href="contact.html">Contact</a>
+  <a href="directory.html?join=true">Join Directory →</a>
+</div>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-dots"></div>
+  <div class="hero-inner">
+
+    <div class="hero-left fi">
+      <div class="hero-pill"><span class="dot"></span><span>Est. 2020 · Batch 1986–2026</span></div>
+      <h1 class="hero-title">
+        Alumni Association<br/>
+        of <span class="accent">APR School</span><br/>
+        Gandipalem
+      </h1>
+      <p class="hero-sub">AAAG · Connecting Generations</p>
+      <p class="hero-desc">A platform that brings together alumni of APR School Gandipalem to share knowledge, experiences, and opportunities — guiding, supporting, and inspiring fellow alumni and students.</p>
+      <p class="hero-telugu">మన అనుభవం… మరొకరికి మార్గం.</p>
+      <div class="hero-btns">
+        <a href="directory.html?join=true" class="btn-primary">
+          Join Alumni Directory
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+        <a href="programs.html" class="btn-outline">Explore Programs</a>
+      </div>
+      <div class="hero-stats">
+        <div class="hstat">
+          <span class="hstat-num">40</span>
+          <span class="hstat-lbl">Batches</span>
+        </div>
+        <div class="hstat-div"></div>
+        <div class="hstat">
+          <span class="hstat-num">1,000<span class="plus">+</span></span>
+          <span class="hstat-lbl">Alumni</span>
+        </div>
+        <div class="hstat-div"></div>
+        <div class="hstat">
+          <span class="hstat-num">1</span>
+          <span class="hstat-lbl">Active Program</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- School Photo Slideshow -->
+    <div class="hero-right">
+      <div class="slideshow" id="slideshow">
+        <div class="slide active">
+          <img src="school_entrance.jpg" alt="APR School Entrance"/>
+          <div class="slide-caption"><p>🏫 APR School Gandipalem — Main Entrance</p></div>
+        </div>
+        <div class="slide">
+          <img src="school_campus.jpg" alt="APR School Campus"/>
+          <div class="slide-caption"><p>🌳 Our Campus — Where It All Began</p></div>
+        </div>
+        <div class="slide">
+          <img src="school_flagpost.jpg" alt="APR School Flag Post"/>
+          <div class="slide-caption"><p>🚩 The Flag Post — A Symbol of Pride</p></div>
+        </div>
+        <div class="slide-dots">
+          <button class="slide-dot active" onclick="goToSlide(0)"></button>
+          <button class="slide-dot" onclick="goToSlide(1)"></button>
+          <button class="slide-dot" onclick="goToSlide(2)"></button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- MISSION -->
+<section id="mission">
+  <div class="sec-in">
+    <p class="s-label fi">Our Purpose</p>
+    <div class="s-bar"></div>
+    <h2 class="s-title fi">Why AAAG Exists</h2>
+    <p class="s-desc fi">We believe every alumnus carries the power to light another's path. AAAG is the bridge between where we came from and where we're going.</p>
+    <div class="mission-grid">
+      <div class="pillars fi">
+        <div class="pillar"><div class="p-ico">🤝</div><div><h4>Connect</h4><p>Reunite alumni across all batches — from 1986 to today — into a living, active network.</p></div></div>
+        <div class="pillar"><div class="p-ico">💡</div><div><h4>Share Knowledge</h4><p>Share career experiences, professional journeys, and life lessons with the broader community.</p></div></div>
+        <div class="pillar"><div class="p-ico">🌱</div><div><h4>Create Impact</h4><p>Run mentorship programs, scholarship initiatives, and community-driven events for students.</p></div></div>
+        <div class="pillar"><div class="p-ico">🎓</div><div><h4>Guide Juniors</h4><p>Be the guide that we ourselves needed — helping current students find direction and opportunity.</p></div></div>
+      </div>
+      <div class="quote-box fi">
+        <blockquote>"Our experiences can light the path for many."<span class="q-tel">మన అనుభవం… మరొకరికి మార్గం.</span></blockquote>
+        <p class="q-src">— AAAG Vision Statement</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHAT WE DO -->
+<section id="what-we-do">
+  <div class="sec-in">
+    <p class="s-label fi">Our Initiatives</p>
+    <div class="s-bar"></div>
+    <h2 class="s-title fi">What We Do</h2>
+    <p class="s-desc fi">Meaningful programs built by alumni, for alumni and the students who follow.</p>
+    <div class="cards-grid">
+      <div class="card fi"><div class="card-bar"></div><div class="card-ico">📋</div><h3>Alumni Directory</h3><p>Find and connect with fellow alumni. Search by batch, profession, or location.</p></div>
+      <div class="card fi"><div class="card-bar"></div><div class="card-ico">🧭</div><h3>Mentorship</h3><p>Senior alumni guiding juniors in career choices, higher education, and professional growth.</p></div>
+      <div class="card fi"><div class="card-bar"></div><div class="card-ico">📅</div><h3>Events & Reunions</h3><p>Annual meetups, batch reunions, webinars, and community events to keep the spirit alive.</p></div>
+      <div class="card fi"><div class="card-bar"></div><div class="card-ico">🏆</div><h3>Alumni Spotlights</h3><p>Celebrating achievements — from civil services to entrepreneurship — as inspiration for all.</p></div>
+      <div class="card fi"><div class="card-bar"></div><div class="card-ico">📚</div><h3>Scholarship Support</h3><p>Alumni-funded scholarships to support deserving students in their academic journeys.</p></div>
+      <div class="card fi"><div class="card-bar"></div><div class="card-ico">💬</div><h3>Community Forum</h3><p>A space for discussions, opportunities, advice, and collaboration across all batches.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- EVENTS -->
+<section id="events">
+  <div class="sec-in">
+    <p class="s-label fi">What's Happening</p>
+    <div class="s-bar"></div>
+    <h2 class="s-title fi">Upcoming Events</h2>
+    <p class="s-desc fi">Stay connected with what's happening in the AAAG community.</p>
+    <div class="events-list fi">
+      <div class="ev-row">
+        <div class="ev-date"><div class="d">04</div><div class="m">Apr</div></div>
+        <div class="ev-info">
+          <h4>🚀 Alumni Maata-Baata — Launch Session</h4>
+          <p class="ev-sub">Official launch of AAAG's flagship program · Sat · 7:00–8:00 PM · Online</p>
+          <p class="ev-wa">📲 Session link will be shared in the WhatsApp group</p>
+        </div>
+        <span class="ev-tag tag-launch">🎉 Launch</span>
+      </div>
+      <div class="ev-row">
+        <div class="ev-date"><div class="d">11</div><div class="m">Apr</div></div>
+        <div class="ev-info">
+          <h4>💰 Basic Finance Planning</h4>
+          <p class="ev-sub">Alumni Maata-Baata · Sat · 7:00–8:00 PM · Online</p>
+          <p class="ev-wa">📲 Session link will be shared in the WhatsApp group</p>
+        </div>
+        <span class="ev-tag tag-soon">Upcoming</span>
+      </div>
+      <div class="ev-row">
+        <div class="ev-date"><div class="d">18</div><div class="m">Apr</div></div>
+        <div class="ev-info">
+          <h4>🤖 AI Tools — Career Impact</h4>
+          <p class="ev-sub">Alumni Maata-Baata · Sat · 7:00–8:00 PM · Online</p>
+          <p class="ev-wa">📲 Session link will be shared in the WhatsApp group</p>
+        </div>
+        <span class="ev-tag tag-soon">Upcoming</span>
+      </div>
+      <div class="ev-row">
+        <div class="ev-date"><div class="d">25</div><div class="m">Apr</div></div>
+        <div class="ev-info">
+          <h4>📊 Tax Planning — Latest Changes</h4>
+          <p class="ev-sub">Alumni Maata-Baata · Sat · 7:00–8:00 PM · Online</p>
+          <p class="ev-wa">📲 Session link will be shared in the WhatsApp group</p>
+        </div>
+        <span class="ev-tag tag-soon">Upcoming</span>
+      </div>
+    </div>
+    <div class="sec-link fi">
+      <a href="programs.html" class="btn-primary" style="display:inline-flex;">
+        View All Programs & Events
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- SPOTLIGHT -->
+<section id="spotlight">
+  <div class="sec-in">
+    <p class="s-label fi">Our Community</p>
+    <div class="s-bar"></div>
+    <h2 class="s-title fi">Alumni Spotlight</h2>
+    <p class="s-desc fi">Proud members of APR School Gandipalem making a difference across fields.</p>
+    <div class="spot-grid">
+      <div class="spot-card fi">
+        <div class="spot-head"><div class="spot-av">RK</div><h4>Ravi Kumar</h4><span class="spot-batch">Batch of 1992</span></div>
+        <div class="spot-body"><p class="spot-role">IAS Officer · Govt. of Telangana</p><p class="spot-quote">"APRS Gandipalem gave me the discipline to dream big and the foundation to achieve it."</p></div>
+      </div>
+      <div class="spot-card fi">
+        <div class="spot-head"><div class="spot-av">SP</div><h4>Sunitha Prasad</h4><span class="spot-batch">Batch of 2001</span></div>
+        <div class="spot-body"><p class="spot-role">Software Engineer · TCS Hyderabad</p><p class="spot-quote">"The values we built here are more valuable than any degree I have earned since."</p></div>
+      </div>
+      <div class="spot-card fi">
+        <div class="spot-head"><div class="spot-av">MR</div><h4>Mahesh Reddy</h4><span class="spot-batch">Batch of 2008</span></div>
+        <div class="spot-body"><p class="spot-role">General Physician · AIIMS Hyderabad</p><p class="spot-quote">"This school didn't just educate me — it shaped who I am as a person and as a doctor."</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- JOIN CTA -->
+<section id="join">
+  <div class="sec-in fi">
+    <p class="s-label">Be Part of the Story</p>
+    <div class="s-bar" style="background:var(--orange);margin:0.5rem auto 1.25rem;"></div>
+    <h2 class="s-title">Join the AAAG Network</h2>
+    <p class="s-desc">Whether you passed out in 1986 or 2026 — you belong here. Add yourself to the alumni directory, attend events, or volunteer as a mentor.</p>
+    <div class="join-btns">
+      <a href="directory.html?join=true" class="btn-white">
+        Join Alumni Directory
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+      <a href="contact.html" class="btn-ghost">Contact Committee</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="foot-in">
+    <div>
+      <div class="fb-name">AA<span>AG</span></div>
+      <p>Alumni Association of APR School, Gandipalem. Connecting alumni across all batches since 1986.</p>
+      <span class="fb-tel">మన అనుభవం… మరొకరికి మార్గం.</span>
+    </div>
+    <div class="fc">
+      <h5>Navigate</h5>
+      <a href="index.html">Home</a>
+      <a href="about.html">About AAAG</a>
+      <a href="committee.html">Committee</a>
+      <a href="directory.html">Alumni Directory</a>
+      <a href="programs.html">Programs & Events</a>
+      <a href="contact.html">Contact</a>
+    </div>
+    <div class="fc">
+      <h5>Community</h5>
+      <a href="directory.html?join=true">Join the Directory</a>
+      <a href="programs.html">Maata-Baata</a>
+      <a href="programs.html">Scholarship Fund</a>
+      <a href="contact.html">Volunteer with Us</a>
+    </div>
+  </div>
+  <div class="foot-btm">
+    <span>© 2026 AAAG – Alumni Association of APR School Gandipalem.</span>
+    <span>Batch 1986 – 2026</span>
+  </div>
+</footer>
+
+<script>
+  function toggleMenu() {
+    document.getElementById('mobileMenu').classList.toggle('open');
+  }
+
+  // Slideshow
+  var currentSlide = 0;
+  var slides = document.querySelectorAll('.slide');
+  var dots   = document.querySelectorAll('.slide-dot');
+
+  function goToSlide(n) {
+    slides[currentSlide].classList.remove('active');
+    dots[currentSlide].classList.remove('active');
+    currentSlide = n;
+    slides[currentSlide].classList.add('active');
+    dots[currentSlide].classList.add('active');
+  }
+
+  setInterval(function() {
+    goToSlide((currentSlide + 1) % slides.length);
+  }, 3500);
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('v'); });
+  }, { threshold:0.08 });
+  document.querySelectorAll('.fi').forEach(el => obs.observe(el));
+</script>
+</body>
+</html>

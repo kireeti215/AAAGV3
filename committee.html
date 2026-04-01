@@ -1,0 +1,1378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Committee – AAAG</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;900&family=Poppins:wght@300;400;500;600;700&family=Noto+Sans+Telugu:wght@400;600&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --blue:       #1A3FA0;
+      --blue-dark:  #0F2670;
+      --blue-light: #E8EDFB;
+      --blue-pale:  #F0F4FF;
+      --orange:     #F26C1B;
+      --orange-lt:  #FF8C42;
+      --orange-pale:#FEF0E6;
+      --teal:       #1A6B5A;
+      --white:      #FFFFFF;
+      --off:        #F7F8FC;
+      --border:     #E2E8F0;
+      --text:       #0F172A;
+      --mid:        #475569;
+      --light:      #94A3B8;
+      --warm-bg:    #FDFAF5;
+      --warm-border:#E8DFD0;
+      --warm-text:  #5C4A2A;
+      --warm-label: #8B6914;
+      --warm-card:  #F9F4EC;
+    }
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+    body { font-family:'Poppins',sans-serif; background:var(--white); color:var(--text); overflow-x:hidden; }
+
+    /* ── NAVBAR ── */
+    nav { position:fixed; top:0; left:0; right:0; z-index:999; background:rgba(255,255,255,0.97); backdrop-filter:blur(14px); border-bottom:1px solid var(--border); height:64px; display:flex; align-items:center; justify-content:space-between; padding:0 1.5rem; box-shadow:0 1px 12px rgba(26,63,160,0.07); }
+    .nav-wordmark { display:flex; align-items:center; gap:10px; text-decoration:none; flex-shrink:0; }
+    .nav-logo { width:44px; height:44px; object-fit:contain; border-radius:6px; flex-shrink:0; }
+    .nav-text .nname { font-family:'Playfair Display',serif; font-size:1.05rem; font-weight:700; color:var(--teal); letter-spacing:1.5px; }
+    .nav-text .nsub  { font-size:0.5rem; color:var(--light); letter-spacing:0.8px; text-transform:uppercase; margin-top:1px; font-weight:500; display:block; }
+    .nav-links { display:flex; align-items:center; }
+    .nav-links a { color:var(--mid); text-decoration:none; font-size:0.8rem; font-weight:500; padding:0.4rem 0.7rem; border-radius:6px; transition:all 0.2s; position:relative; }
+    .nav-links a::after { content:''; position:absolute; bottom:2px; left:0.7rem; right:0.7rem; height:2px; background:var(--orange); border-radius:2px; transform:scaleX(0); transition:transform 0.25s ease; }
+    .nav-links a:hover::after, .nav-links a.active::after { transform:scaleX(1); }
+    .nav-links a:hover { color:var(--blue); background:var(--blue-light); }
+    .nav-links a.active { color:var(--blue); font-weight:600; }
+    .nav-cta { background:var(--orange)!important; color:var(--white)!important; font-weight:600!important; padding:0.42rem 1rem!important; border-radius:8px; margin-left:0.5rem; }
+    .nav-cta::after { display:none!important; }
+    .nav-cta:hover { background:var(--orange-lt)!important; transform:translateY(-1px); }
+    .hamburger { display:none; flex-direction:column; gap:4px; cursor:pointer; padding:4px; }
+    .hamburger span { display:block; width:20px; height:2px; background:var(--blue); border-radius:2px; }
+    .mobile-menu { display:none; position:fixed; top:64px; left:0; right:0; background:var(--white); border-bottom:1px solid var(--border); padding:1rem 1.5rem; z-index:998; flex-direction:column; box-shadow:0 8px 24px rgba(0,0,0,0.08); }
+    .mobile-menu.open { display:flex; }
+    .mobile-menu a { color:var(--mid); text-decoration:none; font-size:0.9rem; padding:0.65rem 0; border-bottom:1px solid var(--border); font-weight:500; }
+    .mobile-menu a:last-child { border:none; color:var(--orange); font-weight:600; }
+
+    /* ── PAGE HERO ── */
+    .page-hero { margin-top:64px; background:linear-gradient(135deg,var(--blue-dark) 0%,var(--blue) 100%); padding:4rem 1.5rem; position:relative; overflow:hidden; }
+    .page-hero::before { content:''; position:absolute; inset:0; background:radial-gradient(circle at 80% 50%,rgba(242,108,27,0.15),transparent 60%); }
+    .page-hero::after { content:''; position:absolute; bottom:-2px; left:0; right:0; height:60px; background:var(--white); clip-path:polygon(0 100%,100% 0%,100% 100%); }
+    .hero-inner { max-width:1100px; margin:0 auto; position:relative; z-index:1; }
+    .breadcrumb { display:flex; align-items:center; gap:0.5rem; margin-bottom:1rem; }
+    .breadcrumb a { color:rgba(255,255,255,0.5); text-decoration:none; font-size:0.75rem; }
+    .breadcrumb span { color:rgba(255,255,255,0.3); font-size:0.75rem; }
+    .breadcrumb .cur { color:rgba(255,255,255,0.7); font-size:0.75rem; }
+    .hero-bar { width:40px; height:4px; background:var(--orange); border-radius:2px; margin-bottom:1.1rem; }
+    .page-hero h1 { font-family:'Playfair Display',serif; font-size:clamp(1.8rem,3.5vw,2.6rem); font-weight:900; color:var(--white); margin-bottom:0.6rem; }
+    .page-hero p  { font-size:0.88rem; color:rgba(255,255,255,0.65); max-width:560px; line-height:1.7; font-weight:400; }
+
+    /* ── SECTIONS ── */
+    section { padding:4.5rem 1.5rem; }
+    .sec-in { max-width:1100px; margin:0 auto; }
+    .s-label { font-size:0.65rem; font-weight:700; letter-spacing:3px; text-transform:uppercase; color:var(--orange); margin-bottom:0.5rem; }
+    .s-title { font-family:'Playfair Display',serif; font-size:clamp(1.5rem,2.5vw,2rem); font-weight:700; color:var(--blue-dark); line-height:1.2; margin-bottom:0.75rem; }
+    .s-desc  { font-size:0.88rem; color:var(--mid); line-height:1.75; max-width:600px; margin-bottom:2.5rem; font-weight:400; }
+    .s-bar   { width:40px; height:4px; background:var(--blue); border-radius:2px; margin-bottom:1.1rem; }
+
+    /* ── COMMITTEE GRID ── */
+    .committee-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(200px,1fr)); gap:1.25rem; }
+    /* Founding committee 4-4-3 layout */
+    .founding-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:1.25rem; }
+    .founding-grid-row2 { display:grid; grid-template-columns:repeat(4,1fr); gap:1.25rem; margin-top:1.25rem; }
+    .founding-grid-row3 { display:grid; grid-template-columns:repeat(3,1fr); gap:1.25rem; margin-top:1.25rem; max-width:75%; }
+
+    /* ── CURRENT COMMITTEE CARD ── */
+    .c-card { background:var(--white); border:1px solid var(--border); border-radius:18px; overflow:hidden; transition:all 0.3s; box-shadow:0 2px 10px rgba(26,63,160,0.05); }
+    .c-card:hover { transform:translateY(-5px); box-shadow:0 14px 36px rgba(26,63,160,0.13); border-color:transparent; }
+    .c-strip { height:4px; background:linear-gradient(90deg,var(--blue),var(--orange)); }
+
+    .c-body { padding:1.5rem 1.1rem 1rem; display:flex; flex-direction:column; align-items:center; gap:0.65rem; }
+
+    /* Avatar with real photo */
+    .c-avatar {
+      width:72px; height:72px; border-radius:50%;
+      overflow:hidden; flex-shrink:0;
+      border:3px solid var(--blue-light);
+      background:linear-gradient(135deg,var(--blue),var(--blue-dark));
+      display:flex; align-items:center; justify-content:center;
+      font-family:'Playfair Display',serif; font-size:1.4rem; font-weight:700; color:var(--white);
+    }
+    .c-avatar img { width:100%; height:100%; object-fit:cover; object-position:top; display:block; }
+
+    .c-name { font-family:'Playfair Display',serif; font-size:0.92rem; font-weight:700; color:var(--text); text-align:center; line-height:1.3; }
+    .c-role-badge { display:inline-block; padding:0.22rem 0.7rem; border-radius:50px; font-size:0.65rem; font-weight:700; letter-spacing:0.3px; text-transform:uppercase; text-align:center; }
+    .role-president { background:rgba(26,63,160,0.1); color:var(--blue); }
+    .role-vp        { background:rgba(242,108,27,0.1); color:var(--orange); }
+    .role-secretary { background:rgba(16,109,60,0.1); color:#10693C; }
+    .role-treasurer { background:rgba(139,68,20,0.1); color:#8B4414; }
+    .role-exec      { background:var(--off); color:var(--mid); border:1px solid var(--border); }
+    .role-honorary  { background:linear-gradient(135deg,rgba(26,63,160,0.12),rgba(242,108,27,0.12)); color:var(--blue-dark); border:1px solid rgba(26,63,160,0.2); }
+
+    .c-meta { padding:0 1.1rem 1.25rem; width:100%; display:flex; flex-direction:column; gap:0.4rem; }
+    .c-meta-row { display:flex; align-items:center; gap:0.5rem; font-size:0.72rem; color:var(--light); }
+    .c-meta-val { color:var(--mid); font-weight:500; }
+
+    /* ── FOUNDING COMMITTEE ── */
+    #founding { background:var(--warm-bg); }
+    #founding .s-title { color:var(--warm-text); }
+    #founding .s-bar   { background:var(--warm-label); }
+
+    .tenure-label { display:inline-flex; align-items:center; gap:6px; background:#F0E8D8; border:1px solid #D4B483; color:var(--warm-label); font-size:0.7rem; font-weight:600; padding:0.3rem 0.9rem; border-radius:50px; margin-bottom:2rem; letter-spacing:0.5px; }
+
+    /* Founding card — warm sepia tone */
+    .f-card { background:var(--warm-card); border:1px solid var(--warm-border); border-radius:18px; overflow:hidden; transition:all 0.25s; box-shadow:0 2px 8px rgba(139,105,20,0.06); }
+    .f-card:hover { background:var(--white); border-color:#C8A96E; box-shadow:0 8px 28px rgba(139,105,20,0.12); transform:translateY(-4px); }
+    .f-strip { height:4px; background:linear-gradient(90deg,#8B6914,#C8A96E); }
+
+    .f-body { padding:1.5rem 1.1rem 1rem; display:flex; flex-direction:column; align-items:center; gap:0.65rem; }
+    .f-avatar {
+      width:72px; height:72px; border-radius:50%;
+      overflow:hidden; flex-shrink:0;
+      border:3px solid #E8DFD0;
+      background:linear-gradient(135deg,#8B6914,#5C4A2A);
+      display:flex; align-items:center; justify-content:center;
+      font-family:'Playfair Display',serif; font-size:1.4rem; font-weight:700; color:#F5E6C8;
+    }
+    .f-avatar img { width:100%; height:100%; object-fit:cover; object-position:top; display:block; }
+
+    .f-name  { font-family:'Playfair Display',serif; font-size:0.92rem; font-weight:700; color:var(--warm-text); text-align:center; line-height:1.3; }
+    .f-role  { display:inline-block; padding:0.2rem 0.65rem; border-radius:50px; font-size:0.63rem; font-weight:700; text-transform:uppercase; background:#F0E8D8; color:var(--warm-label); border:1px solid #D4B483; text-align:center; }
+
+    .f-meta { padding:0 1.1rem 0.5rem; width:100%; display:flex; flex-direction:column; gap:0.35rem; }
+    .f-meta-row { display:flex; align-items:center; gap:0.5rem; font-size:0.7rem; color:#A08B6E; }
+    .f-meta-val { color:var(--warm-text); font-weight:500; }
+
+    /* Serving period badge */
+    .f-period { margin:0 1.1rem 1.1rem; padding:0.4rem 0.75rem; background:#F0E8D8; border-radius:8px; text-align:center; }
+    .f-period span { font-size:0.62rem; color:var(--warm-label); font-weight:600; letter-spacing:0.3px; }
+
+    /* ── WINGS ── */
+    #wings { background:var(--off); }
+    .wings-grid { display:flex; flex-direction:column; gap:1.25rem; }
+    .wing-card { background:var(--white); border:1px solid var(--border); border-radius:18px; overflow:hidden; transition:all 0.25s; }
+    .wing-card:hover { box-shadow:0 8px 28px rgba(26,63,160,0.09); border-color:var(--blue-light); }
+    .wing-header { padding:1.4rem 1.75rem; background:linear-gradient(135deg,var(--blue-dark),var(--blue)); display:flex; align-items:center; gap:1.25rem; cursor:pointer; user-select:none; }
+    .wing-icon { width:46px; height:46px; border-radius:12px; background:rgba(255,255,255,0.12); display:flex; align-items:center; justify-content:center; font-size:1.4rem; flex-shrink:0; }
+    .wing-title-block { flex:1; }
+    .wing-title { font-family:'Playfair Display',serif; font-size:1rem; font-weight:700; color:var(--white); margin-bottom:0.2rem; }
+    .wing-coordinator { font-size:0.76rem; color:rgba(255,255,255,0.65); }
+    .wing-coordinator span { color:var(--orange-lt); font-weight:600; }
+    .wing-toggle { color:rgba(255,255,255,0.6); font-size:1.2rem; transition:transform 0.3s; }
+    .wing-card.open .wing-toggle { transform:rotate(180deg); }
+    .wing-body { padding:1.5rem 1.75rem; display:none; }
+    .wing-card.open .wing-body { display:block; }
+    .members-section { margin-bottom:1.25rem; }
+    .members-section:last-child { margin-bottom:0; }
+    .members-label { font-size:0.62rem; font-weight:700; letter-spacing:2.5px; text-transform:uppercase; color:var(--light); margin-bottom:0.75rem; display:flex; align-items:center; gap:0.5rem; }
+    .members-label::after { content:''; flex:1; height:1px; background:var(--border); }
+    .members-chips { display:flex; flex-wrap:wrap; gap:0.5rem; }
+    .m-chip { display:inline-flex; align-items:center; gap:5px; padding:0.3rem 0.8rem; border-radius:50px; font-size:0.76rem; font-weight:500; transition:all 0.2s; }
+    .m-chip-core { background:var(--blue-light); color:var(--blue); border:1px solid rgba(26,63,160,0.15); }
+    .m-chip-core:hover { background:var(--blue); color:var(--white); }
+    .m-chip-committee { background:var(--orange-pale); color:var(--orange); border:1px solid rgba(242,108,27,0.2); }
+    .m-chip-committee:hover { background:var(--orange); color:var(--white); }
+
+    /* ── FOOTER ── */
+    footer { background:#0A1830; padding:3rem 1.5rem 1.5rem; }
+    .foot-in { max-width:1100px; margin:0 auto; display:grid; grid-template-columns:2fr 1fr 1fr; gap:2.5rem; padding-bottom:2rem; border-bottom:1px solid rgba(255,255,255,0.08); }
+    .fb-name { font-family:'Playfair Display',serif; font-size:1.2rem; color:var(--white); letter-spacing:2px; margin-bottom:0.5rem; }
+    .fb-name span { color:var(--orange-lt); }
+    .foot-in p { font-size:0.76rem; color:rgba(255,255,255,0.4); line-height:1.75; font-weight:400; }
+    .fc h5 { font-size:0.6rem; text-transform:uppercase; letter-spacing:2px; color:rgba(255,255,255,0.5); margin-bottom:0.9rem; font-weight:600; }
+    .fc a  { display:block; color:rgba(255,255,255,0.38); text-decoration:none; font-size:0.76rem; margin-bottom:0.45rem; transition:color 0.2s; }
+    .fc a:hover { color:var(--orange-lt); }
+    .foot-btm { max-width:1100px; margin:1rem auto 0; display:flex; justify-content:space-between; font-size:0.67rem; color:rgba(255,255,255,0.22); }
+
+    /* FADE IN */
+    .fi { opacity:0; transform:translateY(20px); transition:opacity 0.6s ease, transform 0.6s ease; }
+    .fi.v { opacity:1; transform:translateY(0); }
+
+    /* RESPONSIVE */
+    @media (max-width:768px) {
+      .committee-grid { grid-template-columns:repeat(2,1fr); }
+      .foot-in { grid-template-columns:1fr 1fr; }
+    }
+    @media (max-width:500px) {
+      .nav-links { display:none; } .hamburger { display:flex; }
+      nav { padding:0 1rem; }
+      .nav-text .nsub { display:none; }
+      .committee-grid { grid-template-columns:1fr 1fr; }
+      .foot-in { grid-template-columns:1fr; gap:1.5rem; }
+      .foot-btm { flex-direction:column; gap:0.35rem; text-align:center; }
+    }
+    @media (max-width:360px) {
+      .committee-grid { grid-template-columns:1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav>
+  <a href="index.html" class="nav-wordmark">
+    <img src="logo.png" alt="AAAG Logo" class="nav-logo"/>
+    <div class="nav-text">
+      <span class="nname">AAAG</span>
+      <span class="nsub">Alumni Association of APR School Gandipalem</span>
+    </div>
+  </a>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="committee.html" class="active">Committee</a>
+    <a href="directory.html">Directory</a>
+    <a href="programs.html">Programs & Events</a>
+    <a href="contact.html">Contact</a>
+    <a href="directory.html?join=true" class="nav-cta">Join Directory</a>
+  </div>
+  <div class="hamburger" onclick="toggleMenu()"><span></span><span></span><span></span></div>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="index.html">Home</a>
+  <a href="about.html">About</a>
+  <a href="committee.html">Committee</a>
+  <a href="directory.html">Directory</a>
+  <a href="programs.html">Programs & Events</a>
+  <a href="contact.html">Contact</a>
+  <a href="directory.html?join=true">Join Directory →</a>
+</div>
+
+<!-- PAGE HERO -->
+<div class="page-hero">
+  <div class="hero-inner">
+    <div class="breadcrumb"><a href="index.html">Home</a><span>›</span><span class="cur">Committee</span></div>
+    <div class="hero-bar"></div>
+    <h1>Our Leadership</h1>
+    <p>AAAG operates through a structured leadership team, ensuring continuity and growth of the alumni association across generations.</p>
+  </div>
+</div>
+
+<!-- CURRENT COMMITTEE -->
+<section id="current">
+  <div class="sec-in">
+    <p class="s-label fi">Active Leadership</p>
+    <div class="s-bar"></div>
+    <h2 class="s-title fi">Current Committee</h2>
+    <p class="s-desc fi">Our current committee leads AAAG initiatives, programs, and overall development of the alumni association.</p>
+
+    <div class="committee-grid">
+
+      <!-- Honorary President -->
+      <div class="c-card fi">
+        <div class="c-strip"></div>
+        <div class="c-body">
+          <div class="c-avatar"><img src="cc_dasaradh.jpg" alt="Dasaradh Ram Bollu"/></div>
+          <p class="c-name">Dasaradha Ram Bollu</p>
+          <span class="c-role-badge role-honorary">Honorary President</span>
+        </div>
+        <div class="c-meta">
+          <div class="c-meta-row">🎓 <span class="c-meta-val">Batch of 1987 · 2nd Batch</span></div>
+          <div class="c-meta-row">💼 <span class="c-meta-val">Software Engineer</span></div>
+          <div class="c-meta-row">📍 <span class="c-meta-val">Hyderabad</span></div>
+        </div>
+      </div>
+
+      <!-- President -->
+      <div class="c-card fi">
+        <div class="c-strip"></div>
+        <div class="c-body">
+          <div class="c-avatar"><img src="cc_ramanaiah.jpg" alt="Palanati Ramaniah"/></div>
+          <p class="c-name">Palanati Ramaniah</p>
+          <span class="c-role-badge role-president">President</span>
+        </div>
+        <div class="c-meta">
+          <div class="c-meta-row">🎓 <span class="c-meta-val">Batch of 1986 · 1st Batch</span></div>
+          <div class="c-meta-row">💼 <span class="c-meta-val">Supervisor, APSRTC</span></div>
+          <div class="c-meta-row">📍 <span class="c-meta-val">Nellore</span></div>
+        </div>
+      </div>
+
+      <!-- Vice President -->
+      <div class="c-card fi">
+        <div class="c-strip"></div>
+        <div class="c-body">
+          <div class="c-avatar"><img src="cc_subbareddy_g.jpg" alt="Subba Reddy Gajulapalli"/></div>
+          <p class="c-name">Subba Reddy Gajulapalli</p>
+          <span class="c-role-badge role-vp">Vice President</span>
+        </div>
+        <div class="c-meta">
+          <div class="c-meta-row">🎓 <span class="c-meta-val">Batch of 2001 · 16th Batch</span></div>
+          <div class="c-meta-row">💼 <span class="c-meta-val">Government Teacher</span></div>
+          <div class="c-meta-row">📍 <span class="c-meta-val">Udayagiri</span></div>
+        </div>
+      </div>
+
+      <!-- Secretary -->
+      <div class="c-card fi">
+        <div class="c-strip"></div>
+        <div class="c-body">
+          <div class="c-avatar"><img src="cc_jayababu.jpg" alt="Jayababu Thota"/></div>
+          <p class="c-name">Jayababu Thota</p>
+          <span class="c-role-badge role-secretary">Secretary</span>
+        </div>
+        <div class="c-meta">
+          <div class="c-meta-row">🎓 <span class="c-meta-val">Batch of 1996 · 11th Batch</span></div>
+          <div class="c-meta-row">💼 <span class="c-meta-val">Marketing Director</span></div>
+          <div class="c-meta-row">📍 <span class="c-meta-val">Nellore</span></div>
+        </div>
+      </div>
+
+      <!-- Joint Secretary -->
+      <div class="c-card fi">
+        <div class="c-strip"></div>
+        <div class="c-body">
+          <div class="c-avatar"><img src="cc_kasaiah.jpg" alt="Vennapusa Kasaiah"/></div>
+          <p class="c-name">Vennapusa Kasaiah</p>
+          <span class="c-role-badge role-secretary">Joint Secretary</span>
+        </div>
+        <div class="c-meta">
+          <div class="c-meta-row">🎓 <span class="c-meta-val">Batch of 2000 · 15th Batch</span></div>
+          <div class="c-meta-row">💼 <span class="c-meta-val">Software Engineer</span></div>
+          <div class="c-meta-row">📍 <span class="c-meta-val">Nellore</span></div>
+        </div>
+      </div>
+
+      <!-- Treasurer -->
+      <div class="c-card fi">
+        <div class="c-strip"></div>
+        <div class="c-body">
+          <div class="c-avatar"><img src="cc_subbareddy_p.jpg" alt="Polimeru Subba Reddy"/></div>
+          <p class="c-name">Polimeru Subba Reddy</p>
+          <span class="c-role-badge role-treasurer">Treasurer</span>
+        </div>
+        <div class="c-meta">
+          <div class="c-meta-row">🎓 <span class="c-meta-val">Batch of 1999 · 14th Batch</span></div>
+          <div class="c-meta-row">💼 <span class="c-meta-val">Banker</span></div>
+          <div class="c-meta-row">📍 <span class="c-meta-val">Nellore</span></div>
+        </div>
+      </div>
+
+      <!-- Exec Members -->
+      <div class="c-card fi">
+        <div class="c-strip"></div>
+        <div class="c-body">
+          <div class="c-avatar"><img src="cc_subbaramulu.jpg" alt="Boyapati SubbaRamulu"/></div>
+          <p class="c-name">Boyapati SubbaRamulu</p>
+          <span class="c-role-badge role-exec">Executive Member</span>
+        </div>
+        <div class="c-meta">
+          <div class="c-meta-row">🎓 <span class="c-meta-val">Batch of 1992 · 7th Batch</span></div>
+          <div class="c-meta-row">💼 <span class="c-meta-val">Conductor / Insurance Advisor</span></div>
+          <div class="c-meta-row">📍 <span class="c-meta-val">Nellore</span></div>
+        </div>
+      </div>
+
+      <div class="c-card fi">
+        <div class="c-strip"></div>
+        <div class="c-body">
+          <div class="c-avatar"><img src="cc_noushad.jpg" alt="Dr. Sk. Noushad Ali"/></div>
+          <p class="c-name">Dr. Sk. Noushad Ali</p>
+          <span class="c-role-badge role-exec">Executive Member</span>
+        </div>
+        <div class="c-meta">
+          <div class="c-meta-row">🎓 <span class="c-meta-val">Batch of 1997 · 12th Batch</span></div>
+          <div class="c-meta-row">💼 <span class="c-meta-val">Doctor</span></div>
+          <div class="c-meta-row">📍 <span class="c-meta-val">Nellore</span></div>
+        </div>
+      </div>
+
+      <div class="c-card fi">
+        <div class="c-strip"></div>
+        <div class="c-body">
+          <div class="c-avatar"><img src="cc_krishnamohan.jpg" alt="Krishna Mohan Noti"/></div>
+          <p class="c-name">Krishna Mohan Noti</p>
+          <span class="c-role-badge role-exec">Executive Member</span>
+        </div>
+        <div class="c-meta">
+          <div class="c-meta-row">🎓 <span class="c-meta-val">Batch of 2002 · 17th Batch</span></div>
+          <div class="c-meta-row">💼 <span class="c-meta-val">Financial Planner</span></div>
+          <div class="c-meta-row">📍 <span class="c-meta-val">Nellore</span></div>
+        </div>
+      </div>
+
+      <div class="c-card fi">
+        <div class="c-strip"></div>
+        <div class="c-body">
+          <div class="c-avatar"><img src="cc_ramesh.jpg" alt="Pasupuleti Ramesh"/></div>
+          <p class="c-name">Pasupuleti Ramesh</p>
+          <span class="c-role-badge role-exec">Executive Member</span>
+        </div>
+        <div class="c-meta">
+          <div class="c-meta-row">🎓 <span class="c-meta-val">Batch of 2006 · 21st Batch</span></div>
+          <div class="c-meta-row">💼 <span class="c-meta-val">MSME Loan Officer</span></div>
+          <div class="c-meta-row">📍 <span class="c-meta-val">Nellore</span></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- FOUNDING COMMITTEE -->
+<section id="founding">
+  <div class="sec-in">
+    <p class="s-label fi" style="color:var(--warm-label);">The Founders</p>
+    <div class="s-bar" style="background:var(--warm-label);"></div>
+    <h2 class="s-title fi">Founding Committee</h2>
+    <p class="s-desc fi" style="color:#7A6040;">The founding committee laid the foundation of AAAG and built the alumni network and structure from the ground up.</p>
+
+    <div class="tenure-label fi">
+      📅 January 20, 2020 – January 19, 2026
+    </div>
+
+        <div class="founding-grid">
+      <div class="f-card fi">
+        <div class="f-strip"></div>
+        <div class="f-body">
+          <div class="f-avatar"><img src="fc_chandrasekhar.jpg" alt="K. Chandra Sekhar"/></div>
+          <p class="f-name">K. Chandra Sekhar</p>
+          <span class="f-role">Honorary President</span>
+        </div>
+        <div class="f-meta">
+          <div class="f-meta-row">🎓 <span class="f-meta-val">Batch of 1986 · 1st Batch</span></div>
+          <div class="f-meta-row">💼 <span class="f-meta-val">Construction Business</span></div>
+          <div class="f-meta-row">📍 <span class="f-meta-val">Bangalore</span></div>
+        </div>
+        <div class="f-period"><span>📅 Jan 2023 – Jan 2026</span></div>
+      </div>
+      <div class="f-card fi">
+        <div class="f-strip"></div>
+        <div class="f-body">
+          <div class="f-avatar"><img src="fc_vijayabhaskar.jpg" alt="K. Vijaya Bhaskar Reddy"/></div>
+          <p class="f-name">K. Vijaya Bhaskar Reddy</p>
+          <span class="f-role">President</span>
+        </div>
+        <div class="f-meta">
+          <div class="f-meta-row">🎓 <span class="f-meta-val">Batch of 1998 · 13th Batch</span></div>
+          <div class="f-meta-row">💼 <span class="f-meta-val">Assistant Professor</span></div>
+          <div class="f-meta-row">📍 <span class="f-meta-val">Hyderabad</span></div>
+        </div>
+        <div class="f-period"><span>📅 Jan 2020 – Jan 2026</span></div>
+      </div>
+      <div class="f-card fi">
+        <div class="f-strip"></div>
+        <div class="f-body">
+          <div class="f-avatar"><img src="fc_sharonsuman.jpg" alt="G. Sharon Suman"/></div>
+          <p class="f-name">G. Sharon Suman</p>
+          <span class="f-role">Vice President</span>
+        </div>
+        <div class="f-meta">
+          <div class="f-meta-row">🎓 <span class="f-meta-val">Batch of 1998 · 13th Batch</span></div>
+          <div class="f-meta-row">💼 <span class="f-meta-val">Pastor</span></div>
+          <div class="f-meta-row">📍 <span class="f-meta-val">Gandipalem</span></div>
+        </div>
+        <div class="f-period"><span>📅 Jan 2020 – Jan 2026</span></div>
+      </div>
+      <div class="f-card fi">
+        <div class="f-strip"></div>
+        <div class="f-body">
+          <div class="f-avatar"><img src="fc_rasool.jpg" alt="Sk. Rasool"/></div>
+          <p class="f-name">Sk. Rasool</p>
+          <span class="f-role">Secretary</span>
+        </div>
+        <div class="f-meta">
+          <div class="f-meta-row">🎓 <span class="f-meta-val">Batch of 1999 · 14th Batch</span></div>
+          <div class="f-meta-row">💼 <span class="f-meta-val">Software Engineer</span></div>
+          <div class="f-meta-row">📍 <span class="f-meta-val">Hyderabad</span></div>
+        </div>
+        <div class="f-period"><span>📅 Jan 2020 – Jan 2026</span></div>
+      </div>
+    </div>
+    <div class="founding-grid-row2">
+      <div class="f-card fi">
+        <div class="f-strip"></div>
+        <div class="f-body">
+          <div class="f-avatar"><img src="fc_sridhar.jpg" alt="K. Sridhar Reddy"/></div>
+          <p class="f-name">K. Sridhar Reddy</p>
+          <span class="f-role">Joint Secretary</span>
+        </div>
+        <div class="f-meta">
+          <div class="f-meta-row">🎓 <span class="f-meta-val">Batch – –</span></div>
+          <div class="f-meta-row">💼 <span class="f-meta-val">Software Engineer</span></div>
+          <div class="f-meta-row">📍 <span class="f-meta-val">Bangalore</span></div>
+        </div>
+        <div class="f-period"><span>📅 Jan 2023 – Jan 2026</span></div>
+      </div>
+      <div class="f-card fi">
+        <div class="f-strip"></div>
+        <div class="f-body">
+          <div class="f-avatar"><img src="fc_dileep.jpg" alt="T. Dileep Kumar"/></div>
+          <p class="f-name">T. Dileep Kumar</p>
+          <span class="f-role">Treasurer</span>
+        </div>
+        <div class="f-meta">
+          <div class="f-meta-row">🎓 <span class="f-meta-val">Batch of 2001 · 16th Batch</span></div>
+          <div class="f-meta-row">💼 <span class="f-meta-val">Chartered Accountant</span></div>
+          <div class="f-meta-row">📍 <span class="f-meta-val">Bangalore</span></div>
+        </div>
+        <div class="f-period"><span>📅 Jan 2020 – Jan 2026</span></div>
+      </div>
+      <div class="f-card fi">
+        <div class="f-strip"></div>
+        <div class="f-body">
+          <div class="f-avatar"><img src="fc_subbareddy_k.jpg" alt="K. Subba Reddy"/></div>
+          <p class="f-name">K. Subba Reddy</p>
+          <span class="f-role">Executive Member</span>
+        </div>
+        <div class="f-meta">
+          <div class="f-meta-row">🎓 <span class="f-meta-val">Batch of 1999 · 14th Batch</span></div>
+          <div class="f-meta-row">💼 <span class="f-meta-val">Software Engineer</span></div>
+          <div class="f-meta-row">📍 <span class="f-meta-val">Bangalore</span></div>
+        </div>
+        <div class="f-period"><span>📅 Jan 2020 – Jan 2023</span></div>
+      </div>
+      <div class="f-card fi">
+        <div class="f-strip"></div>
+        <div class="f-body">
+          <div class="f-avatar"><img src="fc_kishan.jpg" alt="M. Kishan Kumar"/></div>
+          <p class="f-name">M. Kishan Kumar</p>
+          <span class="f-role">Executive Member</span>
+        </div>
+        <div class="f-meta">
+          <div class="f-meta-row">🎓 <span class="f-meta-val">Batch of 1998 · 13th Batch</span></div>
+          <div class="f-meta-row">💼 <span class="f-meta-val">Government Teacher</span></div>
+          <div class="f-meta-row">📍 <span class="f-meta-val">Srikalahasti</span></div>
+        </div>
+        <div class="f-period"><span>📅 Jan 2020 – Jan 2026</span></div>
+      </div>
+    </div>
+    <div class="founding-grid-row3">
+      <div class="f-card fi">
+        <div class="f-strip"></div>
+        <div class="f-body">
+          <div class="f-avatar"><img src="fc_subbareddy_g.jpg" alt="G. Subba Reddy"/></div>
+          <p class="f-name">G. Subba Reddy</p>
+          <span class="f-role">Executive Member</span>
+        </div>
+        <div class="f-meta">
+          <div class="f-meta-row">🎓 <span class="f-meta-val">Batch of 2001 · 16th Batch</span></div>
+          <div class="f-meta-row">💼 <span class="f-meta-val">Government Teacher</span></div>
+          <div class="f-meta-row">📍 <span class="f-meta-val">Udayagiri</span></div>
+        </div>
+        <div class="f-period"><span>📅 Jan 2020 – Jan 2026</span></div>
+      </div>
+      <div class="f-card fi">
+        <div class="f-strip"></div>
+        <div class="f-body">
+          <div class="f-avatar"><img src="fc_subbareddy_p.jpg" alt="P. Subba Reddy"/></div>
+          <p class="f-name">P. Subba Reddy</p>
+          <span class="f-role">Executive Member</span>
+        </div>
+        <div class="f-meta">
+          <div class="f-meta-row">🎓 <span class="f-meta-val">Batch of 1999 · 14th Batch</span></div>
+          <div class="f-meta-row">💼 <span class="f-meta-val">Banker</span></div>
+          <div class="f-meta-row">📍 <span class="f-meta-val">Nellore</span></div>
+        </div>
+        <div class="f-period"><span>📅 Jan 2020 – Jan 2026</span></div>
+      </div>
+      <div class="f-card fi">
+        <div class="f-strip"></div>
+        <div class="f-body">
+          <div class="f-avatar"><img src="fc_praneeth.jpg" alt="R. Praneeth Kumar"/></div>
+          <p class="f-name">R. Praneeth Kumar</p>
+          <span class="f-role">Executive Member</span>
+        </div>
+        <div class="f-meta">
+          <div class="f-meta-row">🎓 <span class="f-meta-val">Batch of 2015 · 30th Batch</span></div>
+          <div class="f-meta-row">💼 <span class="f-meta-val">Banker</span></div>
+          <div class="f-meta-row">📍 <span class="f-meta-val">Kavali</span></div>
+        </div>
+        <div class="f-period"><span>📅 Jan 2020 – Jan 2026</span></div>
+      </div>
+    </div>html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Committee – AAAG</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;900&family=Poppins:wght@300;400;500;600;700&family=Noto+Sans+Telugu:wght@400;600&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --blue:       #1A3FA0;
+      --blue-dark:  #0F2670;
+      --blue-light: #E8EDFB;
+      --blue-pale:  #F0F4FF;
+      --orange:     #F26C1B;
+      --orange-lt:  #FF8C42;
+      --orange-pale:#FEF0E6;
+      --teal:       #1A6B5A;
+      --white:      #FFFFFF;
+      --off:        #F7F8FC;
+      --border:     #E2E8F0;
+      --text:       #0F172A;
+      --mid:        #475569;
+      --light:      #94A3B8;
+      --warm-bg:    #FDFAF5;
+      --warm-border:#E8DFD0;
+      --warm-text:  #5C4A2A;
+      --warm-label: #8B6914;
+      --warm-card:  #F9F4EC;
+    }
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+    body { font-family:'Poppins',sans-serif; background:var(--white); color:var(--text); overflow-x:hidden; }
+
+    /* ── NAVBAR ── */
+    nav { position:fixed; top:0; left:0; right:0; z-index:999; background:rgba(255,255,255,0.97); backdrop-filter:blur(14px); border-bottom:1px solid var(--border); height:64px; display:flex; align-items:center; justify-content:space-between; padding:0 1.5rem; box-shadow:0 1px 12px rgba(26,63,160,0.07); }
+    .nav-wordmark { display:flex; align-items:center; gap:10px; text-decoration:none; flex-shrink:0; }
+    .nav-logo { width:44px; height:44px; object-fit:contain; border-radius:6px; flex-shrink:0; }
+    .nav-text .nname { font-family:'Playfair Display',serif; font-size:1.05rem; font-weight:700; color:var(--teal); letter-spacing:1.5px; }
+    .nav-text .nsub  { font-size:0.5rem; color:var(--light); letter-spacing:0.8px; text-transform:uppercase; margin-top:1px; font-weight:500; display:block; }
+    .nav-links { display:flex; align-items:center; }
+    .nav-links a { color:var(--mid); text-decoration:none; font-size:0.8rem; font-weight:500; padding:0.4rem 0.7rem; border-radius:6px; transition:all 0.2s; position:relative; }
+    .nav-links a::after { content:''; position:absolute; bottom:2px; left:0.7rem; right:0.7rem; height:2px; background:var(--orange); border-radius:2px; transform:scaleX(0); transition:transform 0.25s ease; }
+    .nav-links a:hover::after, .nav-links a.active::after { transform:scaleX(1); }
+    .nav-links a:hover { color:var(--blue); background:var(--blue-light); }
+    .nav-links a.active { color:var(--blue); font-weight:600; }
+    .nav-cta { background:var(--orange)!important; color:var(--white)!important; font-weight:600!important; padding:0.42rem 1rem!important; border-radius:8px; margin-left:0.5rem; }
+    .nav-cta::after { display:none!important; }
+    .nav-cta:hover { background:var(--orange-lt)!important; transform:translateY(-1px); }
+    .hamburger { display:none; flex-direction:column; gap:4px; cursor:pointer; padding:4px; }
+    .hamburger span { display:block; width:20px; height:2px; background:var(--blue); border-radius:2px; }
+    .mobile-menu { display:none; position:fixed; top:64px; left:0; right:0; background:var(--white); border-bottom:1px solid var(--border); padding:1rem 1.5rem; z-index:998; flex-direction:column; box-shadow:0 8px 24px rgba(0,0,0,0.08); }
+    .mobile-menu.open { display:flex; }
+    .mobile-menu a { color:var(--mid); text-decoration:none; font-size:0.9rem; padding:0.65rem 0; border-bottom:1px solid var(--border); font-weight:500; }
+    .mobile-menu a:last-child { border:none; color:var(--orange); font-weight:600; }
+
+    /* ── PAGE HERO ── */
+    .page-hero { margin-top:64px; background:linear-gradient(135deg,var(--blue-dark) 0%,var(--blue) 100%); padding:4rem 1.5rem; position:relative; overflow:hidden; }
+    .page-hero::before { content:''; position:absolute; inset:0; background:radial-gradient(circle at 80% 50%,rgba(242,108,27,0.15),transparent 60%); }
+    .page-hero::after { content:''; position:absolute; bottom:-2px; left:0; right:0; height:60px; background:var(--white); clip-path:polygon(0 100%,100% 0%,100% 100%); }
+    .hero-inner { max-width:1100px; margin:0 auto; position:relative; z-index:1; }
+    .breadcrumb { display:flex; align-items:center; gap:0.5rem; margin-bottom:1rem; }
+    .breadcrumb a { color:rgba(255,255,255,0.5); text-decoration:none; font-size:0.75rem; }
+    .breadcrumb span { color:rgba(255,255,255,0.3); font-size:0.75rem; }
+    .breadcrumb .cur { color:rgba(255,255,255,0.7); font-size:0.75rem; }
+    .hero-bar { width:40px; height:4px; background:var(--orange); border-radius:2px; margin-bottom:1.1rem; }
+    .page-hero h1 { font-family:'Playfair Display',serif; font-size:clamp(1.8rem,3.5vw,2.6rem); font-weight:900; color:var(--white); margin-bottom:0.6rem; }
+    .page-hero p  { font-size:0.88rem; color:rgba(255,255,255,0.65); max-width:560px; line-height:1.7; font-weight:400; }
+
+    /* ── SECTIONS ── */
+    section { padding:4.5rem 1.5rem; }
+    .sec-in { max-width:1100px; margin:0 auto; }
+    .s-label { font-size:0.65rem; font-weight:700; letter-spacing:3px; text-transform:uppercase; color:var(--orange); margin-bottom:0.5rem; }
+    .s-title { font-family:'Playfair Display',serif; font-size:clamp(1.5rem,2.5vw,2rem); font-weight:700; color:var(--blue-dark); line-height:1.2; margin-bottom:0.75rem; }
+    .s-desc  { font-size:0.88rem; color:var(--mid); line-height:1.75; max-width:600px; margin-bottom:2.5rem; font-weight:400; }
+    .s-bar   { width:40px; height:4px; background:var(--blue); border-radius:2px; margin-bottom:1.1rem; }
+
+    /* ── COMMITTEE GRID ── */
+    .committee-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(200px,1fr)); gap:1.25rem; }
+    /* Founding committee 4-4-3 layout */
+    .founding-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:1.25rem; }
+    .founding-grid-row2 { display:grid; grid-template-columns:repeat(4,1fr); gap:1.25rem; margin-top:1.25rem; }
+    .founding-grid-row3 { display:grid; grid-template-columns:repeat(3,1fr); gap:1.25rem; margin-top:1.25rem; max-width:75%; }
+
+    /* ── CURRENT COMMITTEE CARD ── */
+    .c-card { background:var(--white); border:1px solid var(--border); border-radius:18px; overflow:hidden; transition:all 0.3s; box-shadow:0 2px 10px rgba(26,63,160,0.05); }
+    .c-card:hover { transform:translateY(-5px); box-shadow:0 14px 36px rgba(26,63,160,0.13); border-color:transparent; }
+    .c-strip { height:4px; background:linear-gradient(90deg,var(--blue),var(--orange)); }
+
+    .c-body { padding:1.5rem 1.1rem 1rem; display:flex; flex-direction:column; align-items:center; gap:0.65rem; }
+
+    /* Avatar with real photo */
+    .c-avatar {
+      width:72px; height:72px; border-radius:50%;
+      overflow:hidden; flex-shrink:0;
+      border:3px solid var(--blue-light);
+      background:linear-gradient(135deg,var(--blue),var(--blue-dark));
+      display:flex; align-items:center; justify-content:center;
+      font-family:'Playfair Display',serif; font-size:1.4rem; font-weight:700; color:var(--white);
+    }
+    .c-avatar img { width:100%; height:100%; object-fit:cover; object-position:top; display:block; }
+
+    .c-name { font-family:'Playfair Display',serif; font-size:0.92rem; font-weight:700; color:var(--text); text-align:center; line-height:1.3; }
+    .c-role-badge { display:inline-block; padding:0.22rem 0.7rem; border-radius:50px; font-size:0.65rem; font-weight:700; letter-spacing:0.3px; text-transform:uppercase; text-align:center; }
+    .role-president { background:rgba(26,63,160,0.1); color:var(--blue); }
+    .role-vp        { background:rgba(242,108,27,0.1); color:var(--orange); }
+    .role-secretary { background:rgba(16,109,60,0.1); color:#10693C; }
+    .role-treasurer { background:rgba(139,68,20,0.1); color:#8B4414; }
+    .role-exec      { background:var(--off); color:var(--mid); border:1px solid var(--border); }
+    .role-honorary  { background:linear-gradient(135deg,rgba(26,63,160,0.12),rgba(242,108,27,0.12)); color:var(--blue-dark); border:1px solid rgba(26,63,160,0.2); }
+
+    .c-meta { padding:0 1.1rem 1.25rem; width:100%; display:flex; flex-direction:column; gap:0.4rem; }
+    .c-meta-row { display:flex; align-items:center; gap:0.5rem; font-size:0.72rem; color:var(--light); }
+    .c-meta-val { color:var(--mid); font-weight:500; }
+
+    /* ── FOUNDING COMMITTEE ── */
+    #founding { background:var(--warm-bg); }
+    #founding .s-title { color:var(--warm-text); }
+    #founding .s-bar   { background:var(--warm-label); }
+
+    .tenure-label { display:inline-flex; align-items:center; gap:6px; background:#F0E8D8; border:1px solid #D4B483; color:var(--warm-label); font-size:0.7rem; font-weight:600; padding:0.3rem 0.9rem; border-radius:50px; margin-bottom:2rem; letter-spacing:0.5px; }
+
+    /* Founding card — warm sepia tone */
+    .f-card { background:var(--warm-card); border:1px solid var(--warm-border); border-radius:18px; overflow:hidden; transition:all 0.25s; box-shadow:0 2px 8px rgba(139,105,20,0.06); }
+    .f-card:hover { background:var(--white); border-color:#C8A96E; box-shadow:0 8px 28px rgba(139,105,20,0.12); transform:translateY(-4px); }
+    .f-strip { height:4px; background:linear-gradient(90deg,#8B6914,#C8A96E); }
+
+    .f-body { padding:1.5rem 1.1rem 1rem; display:flex; flex-direction:column; align-items:center; gap:0.65rem; }
+    .f-avatar {
+      width:72px; height:72px; border-radius:50%;
+      overflow:hidden; flex-shrink:0;
+      border:3px solid #E8DFD0;
+      background:linear-gradient(135deg,#8B6914,#5C4A2A);
+      display:flex; align-items:center; justify-content:center;
+      font-family:'Playfair Display',serif; font-size:1.4rem; font-weight:700; color:#F5E6C8;
+    }
+    .f-avatar img { width:100%; height:100%; object-fit:cover; object-position:top; display:block; }
+
+    .f-name  { font-family:'Playfair Display',serif; font-size:0.92rem; font-weight:700; color:var(--warm-text); text-align:center; line-height:1.3; }
+    .f-role  { display:inline-block; padding:0.2rem 0.65rem; border-radius:50px; font-size:0.63rem; font-weight:700; text-transform:uppercase; background:#F0E8D8; color:var(--warm-label); border:1px solid #D4B483; text-align:center; }
+
+    .f-meta { padding:0 1.1rem 0.5rem; width:100%; display:flex; flex-direction:column; gap:0.35rem; }
+    .f-meta-row { display:flex; align-items:center; gap:0.5rem; font-size:0.7rem; color:#A08B6E; }
+    .f-meta-val { color:var(--warm-text); font-weight:500; }
+
+    /* Serving period badge */
+    .f-period { margin:0 1.1rem 1.1rem; padding:0.4rem 0.75rem; background:#F0E8D8; border-radius:8px; text-align:center; }
+    .f-period span { font-size:0.62rem; color:var(--warm-label); font-weight:600; letter-spacing:0.3px; }
+
+    /* ── WINGS ── */
+    #wings { background:var(--off); }
+    .wings-grid { display:flex; flex-direction:column; gap:1.25rem; }
+    .wing-card { background:var(--white); border:1px solid var(--border); border-radius:18px; overflow:hidden; transition:all 0.25s; }
+    .wing-card:hover { box-shadow:0 8px 28px rgba(26,63,160,0.09); border-color:var(--blue-light); }
+    .wing-header { padding:1.4rem 1.75rem; background:linear-gradient(135deg,var(--blue-dark),var(--blue)); display:flex; align-items:center; gap:1.25rem; cursor:pointer; user-select:none; }
+    .wing-icon { width:46px; height:46px; border-radius:12px; background:rgba(255,255,255,0.12); display:flex; align-items:center; justify-content:center; font-size:1.4rem; flex-shrink:0; }
+    .wing-title-block { flex:1; }
+    .wing-title { font-family:'Playfair Display',serif; font-size:1rem; font-weight:700; color:var(--white); margin-bottom:0.2rem; }
+    .wing-coordinator { font-size:0.76rem; color:rgba(255,255,255,0.65); }
+    .wing-coordinator span { color:var(--orange-lt); font-weight:600; }
+    .wing-toggle { color:rgba(255,255,255,0.6); font-size:1.2rem; transition:transform 0.3s; }
+    .wing-card.open .wing-toggle { transform:rotate(180deg); }
+    .wing-body { padding:1.5rem 1.75rem; display:none; }
+    .wing-card.open .wing-body { display:block; }
+    .members-section { margin-bottom:1.25rem; }
+    .members-section:last-child { margin-bottom:0; }
+    .members-label { font-size:0.62rem; font-weight:700; letter-spacing:2.5px; text-transform:uppercase; color:var(--light); margin-bottom:0.75rem; display:flex; align-items:center; gap:0.5rem; }
+    .members-label::after { content:''; flex:1; height:1px; background:var(--border); }
+    .members-chips { display:flex; flex-wrap:wrap; gap:0.5rem; }
+    .m-chip { display:inline-flex; align-items:center; gap:5px; padding:0.3rem 0.8rem; border-radius:50px; font-size:0.76rem; font-weight:500; transition:all 0.2s; }
+    .m-chip-core { background:var(--blue-light); color:var(--blue); border:1px solid rgba(26,63,160,0.15); }
+    .m-chip-core:hover { background:var(--blue); color:var(--white); }
+    .m-chip-committee { background:var(--orange-pale); color:var(--orange); border:1px solid rgba(242,108,27,0.2); }
+    .m-chip-committee:hover { background:var(--orange); color:var(--white); }
+
+    /* ── FOOTER ── */
+    footer { background:#0A1830; padding:3rem 1.5rem 1.5rem; }
+    .foot-in { max-width:1100px; margin:0 auto; display:grid; grid-template-columns:2fr 1fr 1fr; gap:2.5rem; padding-bottom:2rem; border-bottom:1px solid rgba(255,255,255,0.08); }
+    .fb-name { font-family:'Playfair Display',serif; font-size:1.2rem; color:var(--white); letter-spacing:2px; margin-bottom:0.5rem; }
+    .fb-name span { color:var(--orange-lt); }
+    .foot-in p { font-size:0.76rem; color:rgba(255,255,255,0.4); line-height:1.75; font-weight:400; }
+    .fc h5 { font-size:0.6rem; text-transform:uppercase; letter-spacing:2px; color:rgba(255,255,255,0.5); margin-bottom:0.9rem; font-weight:600; }
+    .fc a  { display:block; color:rgba(255,255,255,0.38); text-decoration:none; font-size:0.76rem; margin-bottom:0.45rem; transition:color 0.2s; }
+    .fc a:hover { color:var(--orange-lt); }
+    .foot-btm { max-width:1100px; margin:1rem auto 0; display:flex; justify-content:space-between; font-size:0.67rem; color:rgba(255,255,255,0.22); }
+
+    /* FADE IN */
+    .fi { opacity:0; transform:translateY(20px); transition:opacity 0.6s ease, transform 0.6s ease; }
+    .fi.v { opacity:1; transform:translateY(0); }
+
+    /* RESPONSIVE */
+    @media (max-width:768px) {
+      .committee-grid { grid-template-columns:repeat(2,1fr); }
+      .foot-in { grid-template-columns:1fr 1fr; }
+    }
+    @media (max-width:500px) {
+      .nav-links { display:none; } .hamburger { display:flex; }
+      nav { padding:0 1rem; }
+      .nav-text .nsub { display:none; }
+      .committee-grid { grid-template-columns:1fr 1fr; }
+      .foot-in { grid-template-columns:1fr; gap:1.5rem; }
+      .foot-btm { flex-direction:column; gap:0.35rem; text-align:center; }
+    }
+    @media (max-width:360px) {
+      .committee-grid { grid-template-columns:1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav>
+  <a href="index.html" class="nav-wordmark">
+    <img src="logo.png" alt="AAAG Logo" class="nav-logo"/>
+    <div class="nav-text">
+      <span class="nname">AAAG</span>
+      <span class="nsub">Alumni Association of APR School Gandipalem</span>
+    </div>
+  </a>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="committee.html" class="active">Committee</a>
+    <a href="directory.html">Directory</a>
+    <a href="programs.html">Programs & Events</a>
+    <a href="contact.html">Contact</a>
+    <a href="directory.html?join=true" class="nav-cta">Join Directory</a>
+  </div>
+  <div class="hamburger" onclick="toggleMenu()"><span></span><span></span><span></span></div>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="index.html">Home</a>
+  <a href="about.html">About</a>
+  <a href="committee.html">Committee</a>
+  <a href="directory.html">Directory</a>
+  <a href="programs.html">Programs & Events</a>
+  <a href="contact.html">Contact</a>
+  <a href="directory.html?join=true">Join Directory →</a>
+</div>
+
+<!-- PAGE HERO -->
+<div class="page-hero">
+  <div class="hero-inner">
+    <div class="breadcrumb"><a href="index.html">Home</a><span>›</span><span class="cur">Committee</span></div>
+    <div class="hero-bar"></div>
+    <h1>Our Leadership</h1>
+    <p>AAAG operates through a structured leadership team, ensuring continuity and growth of the alumni association across generations.</p>
+  </div>
+</div>
+
+<!-- CURRENT COMMITTEE -->
+<section id="current">
+  <div class="sec-in">
+    <p class="s-label fi">Active Leadership</p>
+    <div class="s-bar"></div>
+    <h2 class="s-title fi">Current Committee</h2>
+    <p class="s-desc fi">Our current committee leads AAAG initiatives, programs, and overall development of the alumni association.</p>
+
+    <div class="committee-grid">
+
+      <!-- Honorary President -->
+      <div class="c-card fi">
+        <div class="c-strip"></div>
+        <div class="c-body">
+          <div class="c-avatar"><img src="cc_dasaradh.jpg" alt="Dasaradh Ram Bollu"/></div>
+          <p class="c-name">Dasaradha Ram Bollu</p>
+          <span class="c-role-badge role-honorary">Honorary President</span>
+        </div>
+        <div class="c-meta">
+          <div class="c-meta-row">🎓 <span class="c-meta-val">Batch of 1987 · 2nd Batch</span></div>
+          <div class="c-meta-row">💼 <span class="c-meta-val">Software Engineer</span></div>
+          <div class="c-meta-row">📍 <span class="c-meta-val">Hyderabad</span></div>
+        </div>
+      </div>
+
+      <!-- President -->
+      <div class="c-card fi">
+        <div class="c-strip"></div>
+        <div class="c-body">
+          <div class="c-avatar"><img src="cc_ramanaiah.jpg" alt="Palanati Ramaniah"/></div>
+          <p class="c-name">Palanati Ramaniah</p>
+          <span class="c-role-badge role-president">President</span>
+        </div>
+        <div class="c-meta">
+          <div class="c-meta-row">🎓 <span class="c-meta-val">Batch of 1986 · 1st Batch</span></div>
+          <div class="c-meta-row">💼 <span class="c-meta-val">Supervisor, APSRTC</span></div>
+          <div class="c-meta-row">📍 <span class="c-meta-val">Nellore</span></div>
+        </div>
+      </div>
+
+      <!-- Vice President -->
+      <div class="c-card fi">
+        <div class="c-strip"></div>
+        <div class="c-body">
+          <div class="c-avatar"><img src="cc_subbareddy_g.jpg" alt="Subba Reddy Gajulapalli"/></div>
+          <p class="c-name">Subba Reddy Gajulapalli</p>
+          <span class="c-role-badge role-vp">Vice President</span>
+        </div>
+        <div class="c-meta">
+          <div class="c-meta-row">🎓 <span class="c-meta-val">Batch of 2001 · 16th Batch</span></div>
+          <div class="c-meta-row">💼 <span class="c-meta-val">Government Teacher</span></div>
+          <div class="c-meta-row">📍 <span class="c-meta-val">Udayagiri</span></div>
+        </div>
+      </div>
+
+      <!-- Secretary -->
+      <div class="c-card fi">
+        <div class="c-strip"></div>
+        <div class="c-body">
+          <div class="c-avatar"><img src="cc_jayababu.jpg" alt="Jayababu Thota"/></div>
+          <p class="c-name">Jayababu Thota</p>
+          <span class="c-role-badge role-secretary">Secretary</span>
+        </div>
+        <div class="c-meta">
+          <div class="c-meta-row">🎓 <span class="c-meta-val">Batch of 1996 · 11th Batch</span></div>
+          <div class="c-meta-row">💼 <span class="c-meta-val">Marketing Director</span></div>
+          <div class="c-meta-row">📍 <span class="c-meta-val">Nellore</span></div>
+        </div>
+      </div>
+
+      <!-- Joint Secretary -->
+      <div class="c-card fi">
+        <div class="c-strip"></div>
+        <div class="c-body">
+          <div class="c-avatar"><img src="cc_kasaiah.jpg" alt="Vennapusa Kasaiah"/></div>
+          <p class="c-name">Vennapusa Kasaiah</p>
+          <span class="c-role-badge role-secretary">Joint Secretary</span>
+        </div>
+        <div class="c-meta">
+          <div class="c-meta-row">🎓 <span class="c-meta-val">Batch of 2000 · 15th Batch</span></div>
+          <div class="c-meta-row">💼 <span class="c-meta-val">Software Engineer</span></div>
+          <div class="c-meta-row">📍 <span class="c-meta-val">Nellore</span></div>
+        </div>
+      </div>
+
+      <!-- Treasurer -->
+      <div class="c-card fi">
+        <div class="c-strip"></div>
+        <div class="c-body">
+          <div class="c-avatar"><img src="cc_subbareddy_p.jpg" alt="Polimeru Subba Reddy"/></div>
+          <p class="c-name">Polimeru Subba Reddy</p>
+          <span class="c-role-badge role-treasurer">Treasurer</span>
+        </div>
+        <div class="c-meta">
+          <div class="c-meta-row">🎓 <span class="c-meta-val">Batch of 1999 · 14th Batch</span></div>
+          <div class="c-meta-row">💼 <span class="c-meta-val">Banker</span></div>
+          <div class="c-meta-row">📍 <span class="c-meta-val">Nellore</span></div>
+        </div>
+      </div>
+
+      <!-- Exec Members -->
+      <div class="c-card fi">
+        <div class="c-strip"></div>
+        <div class="c-body">
+          <div class="c-avatar"><img src="cc_subbaramulu.jpg" alt="Boyapati SubbaRamulu"/></div>
+          <p class="c-name">Boyapati SubbaRamulu</p>
+          <span class="c-role-badge role-exec">Executive Member</span>
+        </div>
+        <div class="c-meta">
+          <div class="c-meta-row">🎓 <span class="c-meta-val">Batch of 1992 · 7th Batch</span></div>
+          <div class="c-meta-row">💼 <span class="c-meta-val">Conductor / Insurance Advisor</span></div>
+          <div class="c-meta-row">📍 <span class="c-meta-val">Nellore</span></div>
+        </div>
+      </div>
+
+      <div class="c-card fi">
+        <div class="c-strip"></div>
+        <div class="c-body">
+          <div class="c-avatar"><img src="cc_noushad.jpg" alt="Dr. Sk. Noushad Ali"/></div>
+          <p class="c-name">Dr. Sk. Noushad Ali</p>
+          <span class="c-role-badge role-exec">Executive Member</span>
+        </div>
+        <div class="c-meta">
+          <div class="c-meta-row">🎓 <span class="c-meta-val">Batch of 1997 · 12th Batch</span></div>
+          <div class="c-meta-row">💼 <span class="c-meta-val">Doctor</span></div>
+          <div class="c-meta-row">📍 <span class="c-meta-val">Nellore</span></div>
+        </div>
+      </div>
+
+      <div class="c-card fi">
+        <div class="c-strip"></div>
+        <div class="c-body">
+          <div class="c-avatar"><img src="cc_krishnamohan.jpg" alt="Krishna Mohan Noti"/></div>
+          <p class="c-name">Krishna Mohan Noti</p>
+          <span class="c-role-badge role-exec">Executive Member</span>
+        </div>
+        <div class="c-meta">
+          <div class="c-meta-row">🎓 <span class="c-meta-val">Batch of 2002 · 17th Batch</span></div>
+          <div class="c-meta-row">💼 <span class="c-meta-val">Financial Planner</span></div>
+          <div class="c-meta-row">📍 <span class="c-meta-val">Nellore</span></div>
+        </div>
+      </div>
+
+      <div class="c-card fi">
+        <div class="c-strip"></div>
+        <div class="c-body">
+          <div class="c-avatar"><img src="cc_ramesh.jpg" alt="Pasupuleti Ramesh"/></div>
+          <p class="c-name">Pasupuleti Ramesh</p>
+          <span class="c-role-badge role-exec">Executive Member</span>
+        </div>
+        <div class="c-meta">
+          <div class="c-meta-row">🎓 <span class="c-meta-val">Batch of 2006 · 21st Batch</span></div>
+          <div class="c-meta-row">💼 <span class="c-meta-val">MSME Loan Officer</span></div>
+          <div class="c-meta-row">📍 <span class="c-meta-val">Nellore</span></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- FOUNDING COMMITTEE -->
+<section id="founding">
+  <div class="sec-in">
+    <p class="s-label fi" style="color:var(--warm-label);">The Founders</p>
+    <div class="s-bar" style="background:var(--warm-label);"></div>
+    <h2 class="s-title fi">Founding Committee</h2>
+    <p class="s-desc fi" style="color:#7A6040;">The founding committee laid the foundation of AAAG and built the alumni network and structure from the ground up.</p>
+
+    <div class="tenure-label fi">
+      📅 January 20, 2020 – January 19, 2026
+    </div>
+
+    <div class="committee-grid">
+
+      <div class="f-card fi">
+        <div class="f-strip"></div>
+        <div class="f-body">
+          <div class="f-avatar"><img src="fc_chandrasekhar.jpg" alt="K. Chandra Sekhar"/></div>
+          <p class="f-name">K. Chandra Sekhar</p>
+          <span class="f-role">Honorary President</span>
+        </div>
+        <div class="f-meta">
+          <div class="f-meta-row">🎓 <span class="f-meta-val">Batch of 1986 · 1st Batch</span></div>
+          <div class="f-meta-row">💼 <span class="f-meta-val">Construction Business</span></div>
+          <div class="f-meta-row">📍 <span class="f-meta-val">Bangalore</span></div>
+        </div>
+        <div class="f-period"><span>📅 Jan 2023 – Jan 2026</span></div>
+      </div>
+
+      <div class="f-card fi">
+        <div class="f-strip"></div>
+        <div class="f-body">
+          <div class="f-avatar"><img src="fc_vijayabhaskar.jpg" alt="K. Vijaya Bhaskar Reddy"/></div>
+          <p class="f-name">K. Vijaya Bhaskar Reddy</p>
+          <span class="f-role">President</span>
+        </div>
+        <div class="f-meta">
+          <div class="f-meta-row">🎓 <span class="f-meta-val">Batch of 1998 · 13th Batch</span></div>
+          <div class="f-meta-row">💼 <span class="f-meta-val">Assistant Professor</span></div>
+          <div class="f-meta-row">📍 <span class="f-meta-val">Hyderabad</span></div>
+        </div>
+        <div class="f-period"><span>📅 Jan 2020 – Jan 2026</span></div>
+      </div>
+
+      <div class="f-card fi">
+        <div class="f-strip"></div>
+        <div class="f-body">
+          <div class="f-avatar"><img src="fc_sharonsuman.jpg" alt="G. Sharon Suman"/></div>
+          <p class="f-name">G. Sharon Suman</p>
+          <span class="f-role">Vice President</span>
+        </div>
+        <div class="f-meta">
+          <div class="f-meta-row">🎓 <span class="f-meta-val">Batch of 1998 · 13th Batch</span></div>
+          <div class="f-meta-row">💼 <span class="f-meta-val">Pastor</span></div>
+          <div class="f-meta-row">📍 <span class="f-meta-val">Gandipalem</span></div>
+        </div>
+        <div class="f-period"><span>📅 Jan 2020 – Jan 2026</span></div>
+      </div>
+
+      <div class="f-card fi">
+        <div class="f-strip"></div>
+        <div class="f-body">
+          <div class="f-avatar"><img src="fc_rasool.jpg" alt="Sk. Rasool"/></div>
+          <p class="f-name">Sk. Rasool</p>
+          <span class="f-role">Secretary</span>
+        </div>
+        <div class="f-meta">
+          <div class="f-meta-row">🎓 <span class="f-meta-val">Batch of 1999 · 14th Batch</span></div>
+          <div class="f-meta-row">💼 <span class="f-meta-val">Software Engineer</span></div>
+          <div class="f-meta-row">📍 <span class="f-meta-val">Hyderabad</span></div>
+        </div>
+        <div class="f-period"><span>📅 Jan 2020 – Jan 2026</span></div>
+      </div>
+
+      <div class="f-card fi">
+        <div class="f-strip"></div>
+        <div class="f-body">
+          <div class="f-avatar"><img src="fc_sridhar.jpg" alt="K. Sridhar Reddy"/></div>
+          <p class="f-name">K. Sridhar Reddy</p>
+          <span class="f-role">Joint Secretary</span>
+        </div>
+        <div class="f-meta">
+          <div class="f-meta-row">🎓 <span class="f-meta-val">Batch – –</span></div>
+          <div class="f-meta-row">💼 <span class="f-meta-val">Software Engineer</span></div>
+          <div class="f-meta-row">📍 <span class="f-meta-val">Bangalore</span></div>
+        </div>
+        <div class="f-period"><span>📅 Jan 2023 – Jan 2026</span></div>
+      </div>
+
+      <div class="f-card fi">
+        <div class="f-strip"></div>
+        <div class="f-body">
+          <div class="f-avatar"><img src="fc_dileep.jpg" alt="T. Dileep Kumar"/></div>
+          <p class="f-name">T. Dileep Kumar</p>
+          <span class="f-role">Treasurer</span>
+        </div>
+        <div class="f-meta">
+          <div class="f-meta-row">🎓 <span class="f-meta-val">Batch of 2001 · 16th Batch</span></div>
+          <div class="f-meta-row">💼 <span class="f-meta-val">Chartered Accountant</span></div>
+          <div class="f-meta-row">📍 <span class="f-meta-val">Bangalore</span></div>
+        </div>
+        <div class="f-period"><span>📅 Jan 2020 – Jan 2026</span></div>
+      </div>
+
+      <div class="f-card fi">
+        <div class="f-strip"></div>
+        <div class="f-body">
+          <div class="f-avatar"><img src="fc_subbareddy_k.jpg" alt="K. Subba Reddy"/></div>
+          <p class="f-name">K. Subba Reddy</p>
+          <span class="f-role">Executive Member</span>
+        </div>
+        <div class="f-meta">
+          <div class="f-meta-row">🎓 <span class="f-meta-val">Batch of 1999 · 14th Batch</span></div>
+          <div class="f-meta-row">💼 <span class="f-meta-val">Software Engineer</span></div>
+          <div class="f-meta-row">📍 <span class="f-meta-val">Bangalore</span></div>
+        </div>
+        <div class="f-period"><span>📅 Jan 2020 – Jan 2023</span></div>
+      </div>
+
+      <div class="f-card fi">
+        <div class="f-strip"></div>
+        <div class="f-body">
+          <div class="f-avatar"><img src="fc_kishan.jpg" alt="M. Kishan Kumar"/></div>
+          <p class="f-name">M. Kishan Kumar</p>
+          <span class="f-role">Executive Member</span>
+        </div>
+        <div class="f-meta">
+          <div class="f-meta-row">🎓 <span class="f-meta-val">Batch of 1998 · 13th Batch</span></div>
+          <div class="f-meta-row">💼 <span class="f-meta-val">Government Teacher</span></div>
+          <div class="f-meta-row">📍 <span class="f-meta-val">Srikalahasti</span></div>
+        </div>
+        <div class="f-period"><span>📅 Jan 2020 – Jan 2026</span></div>
+      </div>
+
+      <div class="f-card fi">
+        <div class="f-strip"></div>
+        <div class="f-body">
+          <div class="f-avatar"><img src="fc_subbareddy_g.jpg" alt="G. Subba Reddy"/></div>
+          <p class="f-name">G. Subba Reddy</p>
+          <span class="f-role">Executive Member</span>
+        </div>
+        <div class="f-meta">
+          <div class="f-meta-row">🎓 <span class="f-meta-val">Batch of 2001 · 16th Batch</span></div>
+          <div class="f-meta-row">💼 <span class="f-meta-val">Government Teacher</span></div>
+          <div class="f-meta-row">📍 <span class="f-meta-val">Udayagiri</span></div>
+        </div>
+        <div class="f-period"><span>📅 Jan 2020 – Jan 2026</span></div>
+      </div>
+
+      <div class="f-card fi">
+        <div class="f-strip"></div>
+        <div class="f-body">
+          <div class="f-avatar"><img src="fc_subbareddy_p.jpg" alt="P. Subba Reddy"/></div>
+          <p class="f-name">P. Subba Reddy</p>
+          <span class="f-role">Executive Member</span>
+        </div>
+        <div class="f-meta">
+          <div class="f-meta-row">🎓 <span class="f-meta-val">Batch of 1999 · 14th Batch</span></div>
+          <div class="f-meta-row">💼 <span class="f-meta-val">Banker</span></div>
+          <div class="f-meta-row">📍 <span class="f-meta-val">Nellore</span></div>
+        </div>
+        <div class="f-period"><span>📅 Jan 2020 – Jan 2026</span></div>
+      </div>
+
+      <div class="f-card fi">
+        <div class="f-strip"></div>
+        <div class="f-body">
+          <div class="f-avatar"><img src="fc_praneeth.jpg" alt="R. Praneeth Kumar"/></div>
+          <p class="f-name">R. Praneeth Kumar</p>
+          <span class="f-role">Executive Member</span>
+        </div>
+        <div class="f-meta">
+          <div class="f-meta-row">🎓 <span class="f-meta-val">Batch of 2015 · 30th Batch</span></div>
+          <div class="f-meta-row">💼 <span class="f-meta-val">Banker</span></div>
+          <div class="f-meta-row">📍 <span class="f-meta-val">Kavali</span></div>
+        </div>
+        <div class="f-period"><span>📅 Jan 2020 – Jan 2026</span></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- WINGS -->
+<section id="wings">
+  <div class="sec-in">
+    <p class="s-label fi">Focused Execution</p>
+    <div class="s-bar"></div>
+    <h2 class="s-title fi">Wings & Members</h2>
+    <p class="s-desc fi">AAAG operates through dedicated wings to ensure focused execution across key areas.</p>
+
+    <div class="wings-grid fi">
+
+      <div class="wing-card open">
+        <div class="wing-header" onclick="toggleWing(this)">
+          <div class="wing-icon">🎓</div>
+          <div class="wing-title-block">
+            <p class="wing-title">Career Guidance & Mentorship Wing</p>
+            <p class="wing-coordinator">Coordinator: <span>Dr. P. Prassanna</span></p>
+          </div>
+          <span class="wing-toggle">▾</span>
+        </div>
+        <div class="wing-body">
+          <div class="members-section">
+            <p class="members-label">Core Members</p>
+            <div class="members-chips">
+              <span class="m-chip m-chip-core">Raghu Ramireddy</span>
+              <span class="m-chip m-chip-core">Masthan Reddy</span>
+              <span class="m-chip m-chip-core">Venkateswarlu Reddimachu</span>
+              <span class="m-chip m-chip-core">Dumpalagadda Chennarayudu</span>
+              <span class="m-chip m-chip-core">Dr. Thirupathi Koppala</span>
+            </div>
+          </div>
+          <div class="members-section">
+            <p class="members-label">Committee Members</p>
+            <div class="members-chips">
+              <span class="m-chip m-chip-committee">B. Dasaradh Ram</span>
+              <span class="m-chip m-chip-committee">G. Subba Reddy</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="wing-card">
+        <div class="wing-header" onclick="toggleWing(this)">
+          <div class="wing-icon">📱</div>
+          <div class="wing-title-block">
+            <p class="wing-title">Digital Media & Communication Wing</p>
+            <p class="wing-coordinator">Coordinator: <span>Kancharla Vengalarao</span></p>
+          </div>
+          <span class="wing-toggle">▾</span>
+        </div>
+        <div class="wing-body">
+          <div class="members-section">
+            <p class="members-label">Core Members</p>
+            <div class="members-chips">
+              <span class="m-chip m-chip-core">Jagadeesh Malathi</span>
+              <span class="m-chip m-chip-core">Pedanarayana Bathula</span>
+              <span class="m-chip m-chip-core">Rudrakota Praneeth Kumar</span>
+              <span class="m-chip m-chip-core">Ambati Satish Babu</span>
+              <span class="m-chip m-chip-core">Nellore Suresh Babu</span>
+            </div>
+          </div>
+          <div class="members-section">
+            <p class="members-label">Committee Members</p>
+            <div class="members-chips">
+              <span class="m-chip m-chip-committee">P. Ramanaiah</span>
+              <span class="m-chip m-chip-committee">Krishna Mohan N</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="wing-card">
+        <div class="wing-header" onclick="toggleWing(this)">
+          <div class="wing-icon">🏥</div>
+          <div class="wing-title-block">
+            <p class="wing-title">Health & Wellness Wing</p>
+            <p class="wing-coordinator">Coordinator: <span>Dr. Devarakonda Madhu Sudhana</span></p>
+          </div>
+          <span class="wing-toggle">▾</span>
+        </div>
+        <div class="wing-body">
+          <div class="members-section">
+            <p class="members-label">Core Members</p>
+            <div class="members-chips">
+              <span class="m-chip m-chip-core">Jonnalagadda Khaja Masthan</span>
+              <span class="m-chip m-chip-core">Balakrishna Reddy A</span>
+              <span class="m-chip m-chip-core">G. Ravikumar</span>
+              <span class="m-chip m-chip-core">Pamuru Prabhakar</span>
+              <span class="m-chip m-chip-core">Venkateswarlu Pemmasani</span>
+            </div>
+          </div>
+          <div class="members-section">
+            <p class="members-label">Committee Members</p>
+            <div class="members-chips">
+              <span class="m-chip m-chip-committee">Dr. Sk. Noushad Ali</span>
+              <span class="m-chip m-chip-committee">T. Jaya Babu</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="wing-card">
+        <div class="wing-header" onclick="toggleWing(this)">
+          <div class="wing-icon">🏫</div>
+          <div class="wing-title-block">
+            <p class="wing-title">Student & School Development Wing</p>
+            <p class="wing-coordinator">Coordinator: <span>B. Babujani</span></p>
+          </div>
+          <span class="wing-toggle">▾</span>
+        </div>
+        <div class="wing-body">
+          <div class="members-section">
+            <p class="members-label">Core Members</p>
+            <div class="members-chips">
+              <span class="m-chip m-chip-core">Mamillapalli Rudrasekhar</span>
+              <span class="m-chip m-chip-core">Madhusudhana Reddy Juturu</span>
+              <span class="m-chip m-chip-core">Battala Venu</span>
+              <span class="m-chip m-chip-core">Battala Yedukondalu</span>
+              <span class="m-chip m-chip-core">Y. Narasimha Reddy</span>
+            </div>
+          </div>
+          <div class="members-section">
+            <p class="members-label">Committee Members</p>
+            <div class="members-chips">
+              <span class="m-chip m-chip-committee">B. Subba Ramulu</span>
+              <span class="m-chip m-chip-committee">P. Ramesh</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="wing-card">
+        <div class="wing-header" onclick="toggleWing(this)">
+          <div class="wing-icon">💻</div>
+          <div class="wing-title-block">
+            <p class="wing-title">Technology & Innovation Wing</p>
+            <p class="wing-coordinator">Coordinator: <span>Sudarsan Reddy Mallu</span></p>
+          </div>
+          <span class="wing-toggle">▾</span>
+        </div>
+        <div class="wing-body">
+          <div class="members-section">
+            <p class="members-label">Core Members</p>
+            <div class="members-chips">
+              <span class="m-chip m-chip-core">Subrahmanyam Ch</span>
+              <span class="m-chip m-chip-core">Shaik Khaja Kareemullah</span>
+              <span class="m-chip m-chip-core">Narayana Reddy</span>
+              <span class="m-chip m-chip-core">Srini Kasula</span>
+              <span class="m-chip m-chip-core">Veerareddy Kanchamreddy</span>
+            </div>
+          </div>
+          <div class="members-section">
+            <p class="members-label">Committee Members</p>
+            <div class="members-chips">
+              <span class="m-chip m-chip-committee">V. Kasaiah</span>
+              <span class="m-chip m-chip-committee">P. Subba Reddy</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="foot-in">
+    <div>
+      <div class="fb-name">AA<span>AG</span></div>
+      <p>Alumni Association of APR School, Gandipalem. Connecting alumni since 1986.</p>
+    </div>
+    <div class="fc">
+      <h5>Navigate</h5>
+      <a href="index.html">Home</a>
+      <a href="about.html">About AAAG</a>
+      <a href="committee.html">Committee</a>
+      <a href="directory.html">Alumni Directory</a>
+      <a href="programs.html">Programs & Events</a>
+      <a href="contact.html">Contact</a>
+    </div>
+    <div class="fc">
+      <h5>Community</h5>
+      <a href="directory.html?join=true">Join the Directory</a>
+      <a href="programs.html">Maata-Baata</a>
+      <a href="programs.html">Scholarship Fund</a>
+      <a href="contact.html">Volunteer with Us</a>
+    </div>
+  </div>
+  <div class="foot-btm">
+    <span>© 2026 AAAG – Alumni Association of APR School Gandipalem.</span>
+    <span>Batch 1986 – 2026</span>
+  </div>
+</footer>
+
+<script>
+  function toggleMenu() { document.getElementById('mobileMenu').classList.toggle('open'); }
+  function toggleWing(header) { header.closest('.wing-card').classList.toggle('open'); }
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('v'); });
+  }, { threshold:0.08 });
+  document.querySelectorAll('.fi').forEach(el => obs.observe(el));
+</script>
+</body>
+</html>

@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Programs & Events – AAAG</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;900&family=DM+Sans:wght@300;400;500;600;700&family=Noto+Sans+Telugu:wght@400;600&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --blue:       #1A3FA0;
+      --blue-dark:  #0F2670;
+      --blue-mid:   #2F5BE0;
+      --blue-light: #E8EDFB;
+      --orange:     #F26C1B;
+      --orange-lt:  #FF8C42;
+      --orange-pale:#FEF0E6;
+      --white:      #FFFFFF;
+      --off-white:  #F7F8FC;
+      --border:     #E2E8F0;
+      --text-dark:  #0F172A;
+      --text-mid:   #475569;
+      --text-light: #94A3B8;
+      --green:      #16A34A;
+      --green-pale: #DCFCE7;
+    }
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+    body { font-family:'DM Sans',sans-serif; background:var(--off-white); color:var(--text-dark); overflow-x:hidden; }
+
+    /* ── NAVBAR ── */
+    nav { position:fixed; top:0; left:0; right:0; z-index:999; background:rgba(255,255,255,0.97); backdrop-filter:blur(12px); border-bottom:1px solid var(--border); padding:0 2.5rem; height:68px; display:flex; align-items:center; justify-content:space-between; box-shadow:0 1px 12px rgba(26,63,160,0.06); }
+    .nav-wordmark { display:flex; align-items:center; gap:10px; text-decoration:none; }
+    .nav-badge { width:40px; height:40px; border-radius:10px; background:var(--blue); display:flex; align-items:center; justify-content:center; font-family:'Playfair Display',serif; font-size:1rem; font-weight:900; color:var(--white); position:relative; overflow:hidden; }
+    .nav-badge::after { content:''; position:absolute; bottom:0; left:0; right:0; height:3px; background:var(--orange); }
+    .nav-text .name { font-family:'Playfair Display',serif; font-size:1.1rem; font-weight:700; color:#1A6B5A; letter-spacing:1.5px; }
+    .nav-text .sub { font-size:0.58rem; color:var(--text-light); letter-spacing:1px; text-transform:uppercase; margin-top:2px; display:block; }
+    .nav-links { display:flex; align-items:center; gap:0.1rem; }
+    .nav-links a { color:var(--text-mid); text-decoration:none; font-size:0.83rem; font-weight:500; padding:0.4rem 0.8rem; border-radius:6px; transition:all 0.2s; }
+    .nav-links a:hover { color:var(--blue); background:var(--blue-light); }
+    .nav-links a.active { color:var(--blue); font-weight:600; }
+    .nav-links .nav-cta { background:var(--orange); color:var(--white)!important; font-weight:600; padding:0.45rem 1.1rem; border-radius:8px; margin-left:0.5rem; }
+    .nav-links .nav-cta:hover { background:var(--orange-lt); transform:translateY(-1px); }
+    .hamburger { display:none; flex-direction:column; gap:5px; cursor:pointer; }
+    .hamburger span { display:block; width:22px; height:2px; background:var(--blue); border-radius:2px; }
+    .mobile-menu { display:none; position:fixed; top:68px; left:0; right:0; background:var(--white); border-bottom:1px solid var(--border); padding:1.25rem 2rem; z-index:998; flex-direction:column; gap:0.25rem; box-shadow:0 8px 24px rgba(0,0,0,0.08); }
+    .mobile-menu.open { display:flex; }
+    .mobile-menu a { color:var(--text-mid); text-decoration:none; font-size:0.93rem; padding:0.6rem 0; border-bottom:1px solid var(--border); font-weight:500; }
+    .mobile-menu a:last-child { border:none; color:var(--orange); font-weight:700; }
+
+    /* ── PAGE HERO ── */
+    .page-hero { margin-top:68px; background:linear-gradient(135deg, var(--blue-dark) 0%, var(--blue) 100%); padding:4rem 2.5rem; position:relative; overflow:hidden; }
+    .page-hero::before { content:''; position:absolute; inset:0; background:radial-gradient(circle at 80% 50%, rgba(242,108,27,0.15), transparent 60%); }
+    .page-hero::after { content:''; position:absolute; bottom:-2px; left:0; right:0; height:60px; background:var(--off-white); clip-path:polygon(0 100%, 100% 0%, 100% 100%); }
+    .page-hero-inner { max-width:1100px; margin:0 auto; position:relative; z-index:1; }
+    .breadcrumb { display:flex; align-items:center; gap:0.5rem; margin-bottom:1rem; }
+    .breadcrumb a { color:rgba(255,255,255,0.5); text-decoration:none; font-size:0.78rem; }
+    .breadcrumb span { color:rgba(255,255,255,0.3); font-size:0.78rem; }
+    .breadcrumb .current { color:rgba(255,255,255,0.7); font-size:0.78rem; }
+    .hero-bar { width:44px; height:4px; background:var(--orange); border-radius:2px; margin-bottom:1.25rem; }
+    .page-hero h1 { font-family:'Playfair Display',serif; font-size:clamp(1.8rem,3.5vw,2.8rem); font-weight:900; color:var(--white); margin-bottom:0.6rem; }
+    .page-hero p { font-size:0.95rem; color:rgba(255,255,255,0.65); max-width:520px; line-height:1.75; }
+
+    /* ── SECTIONS ── */
+    section { padding:4.5rem 2.5rem; }
+    .section-inner { max-width:1100px; margin:0 auto; }
+    .s-label { font-size:0.68rem; font-weight:700; letter-spacing:3px; text-transform:uppercase; color:var(--orange); margin-bottom:0.5rem; }
+    .s-title { font-family:'Playfair Display',serif; font-size:clamp(1.6rem,2.5vw,2.2rem); font-weight:700; color:var(--blue-dark); line-height:1.2; margin-bottom:0.75rem; }
+    .s-desc { font-size:0.95rem; color:var(--text-mid); line-height:1.8; max-width:640px; margin-bottom:2.5rem; }
+    .blue-bar { width:40px; height:4px; background:var(--blue); border-radius:2px; margin-bottom:1.25rem; }
+
+    /* ── MAATA-BAATA FEATURED ── */
+    #programs { background:var(--off-white); padding-top:3rem; }
+
+    .mb-featured {
+      background:var(--white); border:1px solid var(--border);
+      border-radius:24px; overflow:hidden;
+      box-shadow:0 4px 24px rgba(26,63,160,0.07);
+      display:grid; grid-template-columns:1fr 1.4fr;
+      transition:box-shadow 0.3s;
+    }
+    .mb-featured:hover { box-shadow:0 12px 40px rgba(26,63,160,0.12); }
+
+    .mb-left {
+      background:linear-gradient(145deg, var(--blue-dark), var(--blue));
+      padding:3rem 2.5rem;
+      display:flex; flex-direction:column; justify-content:space-between;
+      position:relative; overflow:hidden;
+    }
+    .mb-left::before { content:''; position:absolute; top:-30px; right:-30px; width:160px; height:160px; background:rgba(242,108,27,0.1); border-radius:50%; }
+    .mb-left::after { content:''; position:absolute; bottom:-20px; left:-20px; width:100px; height:100px; background:rgba(255,255,255,0.04); border-radius:50%; }
+
+    .mb-badge { display:inline-flex; align-items:center; gap:6px; background:rgba(242,108,27,0.2); border:1px solid rgba(242,108,27,0.3); padding:0.3rem 0.8rem; border-radius:50px; margin-bottom:1.25rem; width:fit-content; }
+    .mb-badge .live-dot { width:7px; height:7px; background:var(--orange-lt); border-radius:50%; animation:livePulse 1.5s infinite; }
+    @keyframes livePulse { 0%,100%{opacity:1;transform:scale(1);} 50%{opacity:0.5;transform:scale(1.4);} }
+    .mb-badge span { font-size:0.68rem; color:var(--orange-lt); font-weight:700; letter-spacing:1px; text-transform:uppercase; }
+
+    .mb-left h2 { font-family:'Playfair Display',serif; font-size:1.75rem; font-weight:900; color:var(--white); line-height:1.2; margin-bottom:0.75rem; position:relative; z-index:1; }
+    .mb-left h2 em { color:var(--orange-lt); font-style:normal; }
+    .mb-left p { font-size:0.88rem; color:rgba(255,255,255,0.65); line-height:1.7; position:relative; z-index:1; }
+
+    .mb-wa-btn {
+      display:inline-flex; align-items:center; gap:8px;
+      background:#25D366; color:var(--white);
+      font-weight:700; padding:0.8rem 1.5rem;
+      border-radius:10px; text-decoration:none; font-size:0.88rem;
+      transition:all 0.25s; margin-top:1.75rem; width:fit-content;
+      position:relative; z-index:1;
+      box-shadow:0 4px 16px rgba(37,211,102,0.35);
+    }
+    .mb-wa-btn:hover { background:#1ebe5d; transform:translateY(-2px); box-shadow:0 8px 24px rgba(37,211,102,0.45); }
+
+    .mb-right { padding:2.5rem; }
+
+    .mb-info-grid { display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin-bottom:2rem; }
+    .mb-info-card {
+      background:var(--off-white); border:1px solid var(--border);
+      border-radius:14px; padding:1.1rem 1.25rem;
+      display:flex; align-items:flex-start; gap:0.75rem;
+      transition:all 0.2s;
+    }
+    .mb-info-card:hover { border-color:var(--blue-light); background:var(--blue-light); }
+    .mb-info-icon { font-size:1.4rem; flex-shrink:0; }
+    .mb-info-label { font-size:0.68rem; text-transform:uppercase; letter-spacing:1px; color:var(--text-light); font-weight:600; margin-bottom:0.2rem; }
+    .mb-info-val { font-size:0.9rem; font-weight:700; color:var(--blue-dark); }
+
+    .mb-desc { font-size:0.9rem; color:var(--text-mid); line-height:1.75; margin-bottom:1.25rem; }
+
+    .mb-tags { display:flex; gap:0.5rem; flex-wrap:wrap; }
+    .mb-tag { padding:0.3rem 0.8rem; border-radius:50px; font-size:0.75rem; font-weight:600; }
+    .tag-blue { background:var(--blue-light); color:var(--blue); }
+    .tag-orange { background:var(--orange-pale); color:var(--orange); }
+    .tag-green { background:var(--green-pale); color:var(--green); }
+
+    /* ── PAST SESSIONS ── */
+    #past { background:var(--white); }
+    .sessions-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1.25rem; }
+
+    .session-card {
+      background:var(--off-white); border:1px solid var(--border);
+      border-radius:16px; padding:1.5rem;
+      transition:all 0.25s; position:relative; overflow:hidden;
+    }
+    .session-card::before { content:''; position:absolute; top:0; left:0; right:0; height:3px; background:linear-gradient(90deg, var(--blue), var(--orange)); transform:scaleX(0); transform-origin:left; transition:transform 0.3s; }
+    .session-card:hover { background:var(--white); border-color:transparent; box-shadow:0 8px 28px rgba(26,63,160,0.1); transform:translateY(-3px); }
+    .session-card:hover::before { transform:scaleX(1); }
+
+    .session-num { font-family:'Playfair Display',serif; font-size:2rem; font-weight:700; color:var(--blue-light); line-height:1; margin-bottom:0.75rem; }
+    .session-topic { font-size:0.95rem; font-weight:700; color:var(--blue-dark); margin-bottom:0.4rem; line-height:1.35; }
+    .session-speaker { font-size:0.78rem; color:var(--orange); font-weight:600; margin-bottom:0.5rem; }
+    .session-date { font-size:0.72rem; color:var(--text-light); }
+    .session-desc { font-size:0.8rem; color:var(--text-mid); line-height:1.6; margin-top:0.6rem; }
+
+    /* ── UPCOMING ACTIVITIES ── */
+    #upcoming { background:var(--off-white); }
+
+    .activities-list { display:flex; flex-direction:column; gap:1rem; }
+
+    .activity-card {
+      background:var(--white); border:1px solid var(--border);
+      border-radius:16px; padding:1.5rem 1.75rem;
+      display:flex; align-items:center; gap:1.5rem;
+      transition:all 0.25s;
+    }
+    .activity-card:hover { border-color:var(--blue); box-shadow:0 6px 24px rgba(26,63,160,0.09); transform:translateX(4px); }
+
+    .activity-icon { width:52px; height:52px; border-radius:14px; flex-shrink:0; display:flex; align-items:center; justify-content:center; font-size:1.5rem; }
+    .icon-red    { background:#FEE2E2; }
+    .icon-blue   { background:var(--blue-light); }
+    .icon-green  { background:var(--green-pale); }
+    .icon-orange { background:var(--orange-pale); }
+
+    .activity-info { flex:1; }
+    .activity-info h3 { font-size:1rem; font-weight:700; color:var(--text-dark); margin-bottom:0.3rem; }
+    .activity-info p { font-size:0.83rem; color:var(--text-mid); line-height:1.6; }
+
+    .activity-status {
+      flex-shrink:0; padding:0.3rem 0.9rem; border-radius:50px;
+      font-size:0.7rem; font-weight:700; letter-spacing:0.5px; text-transform:uppercase;
+    }
+    .status-planned  { background:#FEF9C3; color:#92400E; border:1px solid #FDE68A; }
+    .status-upcoming { background:var(--blue-light); color:var(--blue); }
+    .status-open     { background:var(--green-pale); color:var(--green); }
+
+    .notify-btn {
+      display:inline-flex; align-items:center; gap:5px;
+      background:var(--off-white); color:var(--blue);
+      font-size:0.75rem; font-weight:600; padding:0.4rem 0.9rem;
+      border-radius:8px; border:1.5px solid var(--border);
+      cursor:pointer; transition:all 0.2s; font-family:'DM Sans',sans-serif;
+      white-space:nowrap; flex-shrink:0;
+    }
+    .notify-btn:hover { background:var(--blue-light); border-color:var(--blue); }
+    .notify-btn.notified { background:var(--green-pale); color:var(--green); border-color:var(--green); cursor:default; }
+
+    .more-note { background:var(--blue-light); border-radius:12px; padding:1.1rem 1.4rem; font-size:0.85rem; color:var(--blue); margin-top:1.25rem; line-height:1.65; }
+    .more-note strong { font-weight:700; }
+
+    /* ── SUGGEST A TOPIC ── */
+    #suggest { background:var(--white); padding:3.5rem 2.5rem; }
+    .suggest-box {
+      background:linear-gradient(135deg, var(--blue-dark), var(--blue));
+      border-radius:20px; padding:3rem;
+      display:grid; grid-template-columns:1fr 1fr;
+      gap:3rem; align-items:center;
+      position:relative; overflow:hidden;
+    }
+    .suggest-box::before { content:''; position:absolute; inset:0; background:radial-gradient(circle at 80% 50%, rgba(242,108,27,0.15), transparent 65%); pointer-events:none; }
+    .suggest-left { position:relative; z-index:1; }
+    .suggest-left h2 { font-family:'Playfair Display',serif; font-size:1.5rem; font-weight:700; color:var(--white); margin-bottom:0.6rem; }
+    .suggest-left p { font-size:0.88rem; color:rgba(255,255,255,0.65); line-height:1.7; }
+    .suggest-right { position:relative; z-index:1; display:flex; flex-direction:column; gap:0.75rem; }
+    .suggest-input { padding:0.75rem 1rem; border:1.5px solid rgba(255,255,255,0.2); border-radius:10px; background:rgba(255,255,255,0.1); color:var(--white); font-size:0.88rem; font-family:'DM Sans',sans-serif; outline:none; transition:border-color 0.2s; width:100%; }
+    .suggest-input::placeholder { color:rgba(255,255,255,0.4); }
+    .suggest-input:focus { border-color:var(--orange-lt); background:rgba(255,255,255,0.15); }
+    .suggest-submit { padding:0.75rem; background:var(--orange); color:var(--white); font-weight:700; border:none; border-radius:10px; cursor:pointer; font-size:0.88rem; font-family:'DM Sans',sans-serif; transition:all 0.2s; }
+    .suggest-submit:hover { background:var(--orange-lt); }
+    .suggest-success { display:none; text-align:center; color:var(--white); font-size:0.9rem; padding:1rem; background:rgba(22,163,74,0.2); border-radius:10px; border:1px solid rgba(22,163,74,0.4); }
+    .suggest-success.show { display:block; }
+
+    /* ── STAY CONNECTED ── */
+    #stay-connected { background:var(--off-white); padding:4rem 2.5rem; }
+    .connected-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1.25rem; margin-top:2rem; }
+    .connected-card {
+      background:var(--white); border:1px solid var(--border);
+      border-radius:16px; padding:1.75rem;
+      text-align:center; transition:all 0.25s;
+    }
+    .connected-card:hover { transform:translateY(-4px); box-shadow:0 10px 30px rgba(26,63,160,0.09); border-color:var(--blue-light); }
+    .connected-icon { font-size:2rem; margin-bottom:0.75rem; display:block; }
+    .connected-card h3 { font-size:0.95rem; font-weight:700; color:var(--blue-dark); margin-bottom:0.4rem; }
+    .connected-card p { font-size:0.8rem; color:var(--text-mid); line-height:1.6; margin-bottom:1.25rem; }
+    .connected-btn { display:inline-flex; align-items:center; gap:6px; padding:0.55rem 1.2rem; border-radius:8px; font-size:0.8rem; font-weight:600; text-decoration:none; transition:all 0.2s; }
+    .btn-wa { background:#25D366; color:var(--white); }
+    .btn-wa:hover { background:#1ebe5d; }
+    .btn-blue-outline { background:transparent; color:var(--blue); border:1.5px solid var(--blue); }
+    .btn-blue-outline:hover { background:var(--blue); color:var(--white); }
+    .btn-orange { background:var(--orange); color:var(--white); }
+    .btn-orange:hover { background:var(--orange-lt); }
+
+    /* ── FOOTER ── */
+    footer { background:#0A1A3A; padding:3rem 2.5rem 1.5rem; }
+    .footer-inner { max-width:1100px; margin:0 auto; display:grid; grid-template-columns:2fr 1fr 1fr; gap:3rem; padding-bottom:2rem; border-bottom:1px solid rgba(255,255,255,0.08); }
+    .fb-name { font-family:'Playfair Display',serif; font-size:1.2rem; color:var(--white); letter-spacing:2px; margin-bottom:0.5rem; }
+    .fb-name span { color:var(--orange-lt); }
+    footer p { font-size:0.8rem; color:rgba(255,255,255,0.4); line-height:1.7; max-width:270px; }
+    .fc h5 { font-size:0.68rem; text-transform:uppercase; letter-spacing:2px; color:rgba(255,255,255,0.55); margin-bottom:1rem; font-weight:700; }
+    .fc a { display:block; color:rgba(255,255,255,0.38); text-decoration:none; font-size:0.8rem; margin-bottom:0.45rem; transition:color 0.2s; }
+    .fc a:hover { color:var(--orange-lt); }
+    .footer-bottom { max-width:1100px; margin:1.25rem auto 0; display:flex; justify-content:space-between; font-size:0.72rem; color:rgba(255,255,255,0.22); }
+
+    /* ── FADE IN ── */
+    .fade-in { opacity:0; transform:translateY(20px); transition:opacity 0.6s ease, transform 0.6s ease; }
+    .fade-in.visible { opacity:1; transform:translateY(0); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width:900px) {
+      .mb-featured { grid-template-columns:1fr; }
+      .mb-left { padding:2rem; }
+      .sessions-grid { grid-template-columns:1fr 1fr; }
+      .suggest-box { grid-template-columns:1fr; gap:2rem; }
+      .connected-grid { grid-template-columns:1fr; }
+      .footer-inner { grid-template-columns:1fr 1fr; }
+    }
+    @media (max-width:600px) {
+      .nav-links { display:none; } .hamburger { display:flex; }
+      .mb-info-grid { grid-template-columns:1fr; }
+      .sessions-grid { grid-template-columns:1fr; }
+      .activity-card { flex-wrap:wrap; }
+      .footer-inner { grid-template-columns:1fr; gap:1.5rem; }
+      .footer-bottom { flex-direction:column; gap:0.4rem; text-align:center; }
+    }
+    .nav-logo {
+      width: 44px; height: 44px; object-fit: contain;
+      border-radius: 6px; flex-shrink: 0;
+    }
+      </style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav>
+  <a href="index.html" class="nav-wordmark">
+    <img src="logo.png" alt="AAAG Logo" class="nav-logo"/>
+    <div class="nav-text">
+      <span class="name">AAAG</span>
+      <span class="sub">Alumni Association of APR School Gandipalem</span>
+    </div>
+  </a>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="committee.html">Committee</a>
+    <a href="directory.html">Directory</a>
+    <a href="programs.html" class="active">Programs & Events</a>
+    <a href="contact.html">Contact</a>
+    <a href="directory.html" class="nav-cta">Join Directory</a>
+  </div>
+  <div class="hamburger" onclick="toggleMenu()"><span></span><span></span><span></span></div>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="index.html">Home</a>
+  <a href="about.html">About</a>
+  <a href="committee.html">Committee</a>
+  <a href="directory.html">Directory</a>
+  <a href="programs.html">Programs & Events</a>
+  <a href="contact.html">Contact</a>
+  <a href="directory.html">Join Directory →</a>
+</div>
+
+<!-- PAGE HERO -->
+<div class="page-hero">
+  <div class="page-hero-inner">
+    <div class="breadcrumb">
+      <a href="index.html">Home</a>
+      <span>›</span>
+      <span class="current">Programs & Events</span>
+    </div>
+    <div class="hero-bar"></div>
+    <h1>Programs & Events</h1>
+    <p>Explore ongoing programs and upcoming activities of AAAG. Stay connected, stay inspired.</p>
+  </div>
+</div>
+
+<!-- MAATA-BAATA FEATURED -->
+<section id="programs">
+  <div class="section-inner">
+    <p class="s-label fade-in">Flagship Program</p>
+    <div class="blue-bar"></div>
+    <h2 class="s-title fade-in">Our Programs</h2>
+    <p class="s-desc fade-in">AAAG runs structured programs that bring alumni and students together for knowledge, guidance, and community.</p>
+
+    <div class="mb-featured fade-in">
+      <div class="mb-left">
+        <div>
+          <div class="mb-badge"><span class="live-dot"></span><span>Active Program</span></div>
+          <h2>Alumni<br/><em>Maata-Baata</em></h2>
+          <p>A continuous knowledge-sharing program where alumni share their experiences, insights, and guidance with fellow alumni and current students.</p>
+        </div>
+        <div style="margin-top:1.75rem;background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);border-radius:10px;padding:0.9rem 1.25rem;font-size:0.82rem;color:rgba(255,255,255,0.7);line-height:1.6;position:relative;z-index:1;">📲 <strong style="color:#fff;">Session links are shared on time.</strong> Contact us to be added to the group.</div>
+      </div>
+      <div class="mb-right">
+        <div class="mb-info-grid">
+          <div class="mb-info-card">
+            <span class="mb-info-icon">📅</span>
+            <div><p class="mb-info-label">Schedule</p><p class="mb-info-val">Every Saturday</p></div>
+          </div>
+          <div class="mb-info-card">
+            <span class="mb-info-icon">⏰</span>
+            <div><p class="mb-info-label">Time</p><p class="mb-info-val">7:00 PM – 8:00 PM</p></div>
+          </div>
+          <div class="mb-info-card">
+            <span class="mb-info-icon">📍</span>
+            <div><p class="mb-info-label">Mode</p><p class="mb-info-val">Online</p></div>
+          </div>
+          <div class="mb-info-card">
+            <span class="mb-info-icon">🎯</span>
+            <div><p class="mb-info-label">Focus</p><p class="mb-info-val">Topic-based Sessions</p></div>
+          </div>
+        </div>
+        <p class="mb-desc">Each session focuses on a specific topic, helping participants gain practical knowledge and clarity through real-life experiences shared by alumni across professions.</p>
+        <div class="mb-tags">
+          <span class="mb-tag tag-blue">Open to Alumni</span>
+          <span class="mb-tag tag-green">Open to Students</span>
+          <span class="mb-tag tag-orange">Free to Join</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PAST SESSIONS -->
+<section id="past">
+  <div class="section-inner">
+    <p class="s-label fade-in">What We've Covered</p>
+    <div class="blue-bar"></div>
+    <h2 class="s-title fade-in">Past Sessions</h2>
+    <p class="s-desc fade-in">A glimpse of the topics and insights shared in recent Maata-Baata sessions.</p>
+
+    <div class="sessions-grid">
+      <div class="session-card fade-in">
+        <div class="session-num">#01</div>
+        <p class="session-topic">Choosing the Right Career Path After Intermediate</p>
+        <p class="session-speaker">Shared by: Ravi Kumar, IAS Officer</p>
+        <p class="session-date">📅 Saturday, Jan 11, 2025</p>
+        <p class="session-desc">Practical guidance on evaluating career options — civil services, engineering, medicine, and entrepreneurship — with honest trade-offs.</p>
+      </div>
+      <div class="session-card fade-in">
+        <div class="session-num">#02</div>
+        <p class="session-topic">Life in Engineering College — What No One Tells You</p>
+        <p class="session-speaker">Shared by: Sunitha Prasad, TCS</p>
+        <p class="session-date">📅 Saturday, Jan 18, 2025</p>
+        <p class="session-desc">From hostel life to placements — a candid session on navigating engineering college with focus and resilience.</p>
+      </div>
+      <div class="session-card fade-in">
+        <div class="session-num">#03</div>
+        <p class="session-topic">Health & Well-being for Working Professionals</p>
+        <p class="session-speaker">Shared by: Dr. Mahesh Reddy, AIIMS</p>
+        <p class="session-date">📅 Saturday, Jan 25, 2025</p>
+        <p class="session-desc">Simple, practical habits for maintaining physical and mental health — tailored for alumni juggling demanding careers.</p>
+      </div>
+      <div class="session-card fade-in">
+        <div class="session-num">#04</div>
+        <p class="session-topic">UPSC Journey — Preparation, Failures & Success</p>
+        <p class="session-speaker">Shared by: Anitha Rao, SBI</p>
+        <p class="session-date">📅 Saturday, Feb 1, 2025</p>
+        <p class="session-desc">An honest account of the UPSC journey — what worked, what didn't, and how to stay motivated through the process.</p>
+      </div>
+      <div class="session-card fade-in">
+        <div class="session-num">#05</div>
+        <p class="session-topic">From APRS to Abroad — Higher Education Opportunities</p>
+        <p class="session-speaker">Shared by: Priya Nanduri, Infosys</p>
+        <p class="session-date">📅 Saturday, Feb 8, 2025</p>
+        <p class="session-desc">A guide to scholarships, GRE, IELTS, and application strategies for pursuing higher education internationally.</p>
+      </div>
+      <div class="session-card fade-in">
+        <div class="session-num">#06</div>
+        <p class="session-topic">Starting a Business — Lessons from the Ground</p>
+        <p class="session-speaker">Shared by: Venkat Swamy, Entrepreneur</p>
+        <p class="session-date">📅 Saturday, Feb 15, 2025</p>
+        <p class="session-desc">Real stories of building a business from scratch — funding, failures, pivots, and what it truly takes to be an entrepreneur.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- UPCOMING ACTIVITIES -->
+<section id="upcoming">
+  <div class="section-inner">
+    <p class="s-label fade-in">On the Horizon</p>
+    <div class="blue-bar"></div>
+    <h2 class="s-title fade-in">Upcoming Activities</h2>
+    <p class="s-desc fade-in">Activities being planned as part of AAAG initiatives. Stay connected for updates.</p>
+
+    <div class="activities-list fade-in">
+      <div class="activity-card">
+        <div class="activity-icon icon-red">🩸</div>
+        <div class="activity-info">
+          <h3>Blood Donation Camp</h3>
+          <p>A community health initiative organized by the Health & Wellness Wing. Open to all alumni, students, and community members.</p>
+        </div>
+        <span class="activity-status status-planned">Planned</span>
+        <button class="notify-btn" onclick="notifyMe(this)">🔔 Notify Me</button>
+      </div>
+
+      <div class="activity-card">
+        <div class="activity-icon icon-blue">🤝</div>
+        <div class="activity-info">
+          <h3>Alumni Meet / Get-together</h3>
+          <p>Annual alumni gathering bringing together members across all batches for reconnection, networking, and celebration.</p>
+        </div>
+        <span class="activity-status status-planned">Planned</span>
+        <button class="notify-btn" onclick="notifyMe(this)">🔔 Notify Me</button>
+      </div>
+
+      <div class="activity-card">
+        <div class="activity-icon icon-green">🎓</div>
+        <div class="activity-info">
+          <h3>Student Interaction Sessions</h3>
+          <p>In-person sessions at APRS Gandipalem where alumni directly interact with current students — sharing career paths and life lessons.</p>
+        </div>
+        <span class="activity-status status-planned">Planned</span>
+        <button class="notify-btn" onclick="notifyMe(this)">🔔 Notify Me</button>
+      </div>
+
+      <div class="activity-card">
+        <div class="activity-icon icon-orange">📚</div>
+        <div class="activity-info">
+          <h3>Scholarship Fund Drive</h3>
+          <p>An initiative to collect alumni contributions for supporting deserving students at APRS Gandipalem with educational resources.</p>
+        </div>
+        <span class="activity-status status-planned">Planned</span>
+        <button class="notify-btn" onclick="notifyMe(this)">🔔 Notify Me</button>
+      </div>
+    </div>
+
+    <div class="more-note fade-in">
+      <strong>📢 More activities</strong> will be organized as part of AAAG initiatives. Stay connected on the WhatsApp group for real-time updates on all upcoming events.
+    </div>
+  </div>
+</section>
+
+<!-- SUGGEST A TOPIC -->
+<section id="suggest">
+  <div class="section-inner">
+    <div class="suggest-box fade-in">
+      <div class="suggest-left">
+        <p style="font-size:0.68rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:rgba(242,108,27,0.8);margin-bottom:0.5rem;">Your Voice Matters</p>
+        <h2>Suggest a Topic for Maata-Baata</h2>
+        <p>Have a topic you'd like to hear about? Or want to share your own experience as a speaker? Let us know — AAAG is built by alumni, for alumni.</p>
+      </div>
+      <div class="suggest-right">
+        <input type="text" class="suggest-input" id="topicInput" placeholder="e.g. How to prepare for government jobs…"/>
+        <input type="text" class="suggest-input" id="nameInput" placeholder="Your name (optional)"/>
+        <button class="suggest-submit" onclick="submitSuggestion()">Submit Suggestion →</button>
+        <div class="suggest-success" id="suggestSuccess">✅ Thank you! Your suggestion has been sent to the committee.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STAY CONNECTED -->
+<section id="stay-connected">
+  <div class="section-inner">
+    <p class="s-label fade-in">Stay in the Loop</p>
+    <div class="blue-bar"></div>
+    <h2 class="s-title fade-in">Stay Connected</h2>
+    <p class="s-desc fade-in">Don't miss any session or activity. Here's how to stay updated.</p>
+
+    <div class="connected-grid fade-in">
+      <div class="connected-card">
+        <span class="connected-icon">💬</span>
+        <h3>WhatsApp Group</h3>
+        <p>Join the AAAG WhatsApp group for real-time updates on Maata-Baata sessions, events, and announcements.</p>
+        <a href="contact.html" class="connected-btn btn-wa">Request to Join</a>
+      </div>
+      <div class="connected-card">
+        <span class="connected-icon">📋</span>
+        <h3>Alumni Directory</h3>
+        <p>Add your profile to the directory and stay connected with the broader AAAG network across all batches.</p>
+        <a href="directory.html" class="connected-btn btn-blue-outline">Join Directory</a>
+      </div>
+      <div class="connected-card">
+        <span class="connected-icon">🙋</span>
+        <h3>Volunteer / Speak</h3>
+        <p>Want to share your journey as a Maata-Baata speaker or volunteer for AAAG activities? Reach out to us.</p>
+        <a href="contact.html" class="connected-btn btn-orange">Contact Committee</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div>
+      <div class="fb-name">AA<span>AG</span></div>
+      <p>Alumni Association of AP Residential School, Gandipalem. Connecting alumni since 1986.</p>
+    </div>
+    <div class="fc">
+      <h5>Navigate</h5>
+      <a href="index.html">Home</a>
+      <a href="about.html">About AAAG</a>
+      <a href="committee.html">Committee</a>
+      <a href="directory.html">Alumni Directory</a>
+      <a href="programs.html">Programs & Events</a>
+      <a href="contact.html">Contact</a>
+    </div>
+    <div class="fc">
+      <h5>Community</h5>
+      <a href="directory.html">Join the Directory</a>
+      <a href="programs.html">Mentorship Program</a>
+      <a href="programs.html">Scholarship Fund</a>
+      <a href="contact.html">Volunteer with Us</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 AAAG – Alumni Association of APRS Gandipalem.</span>
+    <span>Batch 1986 – 2024</span>
+  </div>
+</footer>
+
+<script>
+  function toggleMenu() { document.getElementById('mobileMenu').classList.toggle('open'); }
+
+  function notifyMe(btn) {
+    btn.textContent = '✅ Noted!';
+    btn.classList.add('notified');
+    btn.disabled = true;
+  }
+
+  function submitSuggestion() {
+    const topic = document.getElementById('topicInput').value.trim();
+    if(!topic) { document.getElementById('topicInput').focus(); return; }
+    document.getElementById('topicInput').value = '';
+    document.getElementById('nameInput').value = '';
+    const s = document.getElementById('suggestSuccess');
+    s.classList.add('show');
+    setTimeout(() => s.classList.remove('show'), 4000);
+  }
+
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold:0.08 });
+  document.querySelectorAll('.fade-in').forEach(el => obs.observe(el));
+</script>
+</body>
+</html>
